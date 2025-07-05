@@ -13,7 +13,3 @@ Route::get('/home', function () {
 Route::get('/accomodation', function () {
     return view('client.pages.accomodation');
 })->name('client.pages.accomodation');
-
-
-
-
