@@ -1,263 +1,508 @@
 @extends('client.layouts.master')
 
-@section('banner_area')
-    <section class="banner_area">
-        <div class="booking_table d_flex align-items-center">
-            <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
-            <div class="container">
-                <div class="banner_content text-center">
-                    <h6>Away from monotonous life</h6>
-                    <h2>Relax Your Mind</h2>
-                    <p>If you are looking at blank cassettes on the web, you may be very confused at the<br> difference in price. You may see some for as low as $.17 each.</p>
-                    <a href="#" class="btn theme_btn button_hover">Get Started</a>
+@section('carousel')
+<div class="container-fluid p-0 mb-5">
+    <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="w-100" src="{{ asset('client_assets/img/carousel-1.jpg') }}" alt="Image">
+                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                    <div class="p-3" style="max-width: 700px;">
+                        <h6 class="section-title text-white text-uppercase mb-3 animated slideInDown">Luxury Living</h6>
+                        <h1 class="display-3 text-white mb-4 animated slideInDown">Discover A Brand Luxurious Hotel</h1>
+                        <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Our Rooms</a>
+                        <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Book A Room</a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img class="w-100" src="img/carousel-2.jpg" alt="Image">
+                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                    <div class="p-3" style="max-width: 700px;">
+                        <h6 class="section-title text-white text-uppercase mb-3 animated slideInDown">Luxury Living</h6>
+                        <h1 class="display-3 text-white mb-4 animated slideInDown">Discover A Brand Luxurious Hotel</h1>
+                        <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Our Rooms</a>
+                        <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Book A Room</a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="hotel_booking_area position">
-            <div class="container">
-                <div class="hotel_booking_table">
-                    <div class="col-md-3">
-                        <h2>Book<br> Your Room</h2>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="boking_table">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="book_tabel_item">
-                                        <div class="form-group">
-                                            <div class='input-group date' id='datetimepicker11'>
-                                                <input type='text' class="form-control" placeholder="Arrival Date"/>
-                                                <span class="input-group-addon">
-                                                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class='input-group date' id='datetimepicker1'>
-                                                <input type='text' class="form-control" placeholder="Departure Date"/>
-                                                <span class="input-group-addon">
-                                                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="book_tabel_item">
-                                        <div class="input-group">
-                                            <select class="wide">
-                                                <option data-display="Adult">Adult</option>
-                                                <option value="1">Old</option>
-                                                <option value="2">Younger</option>
-                                                <option value="3">Potato</option>
-                                            </select>
-                                        </div>
-                                        <div class="input-group">
-                                            <select class="wide">
-                                                <option data-display="Child">Child</option>
-                                                <option value="1">Child</option>
-                                                <option value="2">Baby</option>
-                                                <option value="3">Child</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="book_tabel_item">
-                                        <div class="input-group">
-                                            <select class="wide">
-                                                <option data-display="Child">Number of Rooms</option>
-                                                <option value="1">Room 01</option>
-                                                <option value="2">Room 02</option>
-                                                <option value="3">Room 03</option>
-                                            </select>
-                                        </div>
-                                        <a class="book_now_btn button_hover" href="#">Book Now</a>
-                                    </div>
-                                </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#header-carousel"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+@endsection
+
+@section('booking')
+<div class="container-fluid booking pb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container">
+        <div class="bg-white shadow" style="padding: 35px;">
+            <div class="row g-2">
+                <div class="col-md-10">
+                    <div class="row g-2">
+                        <div class="col-md-3">
+                            <div class="date" id="date1" data-target-input="nearest">
+                                <input type="text" class="form-control datetimepicker-input"
+                                    placeholder="Check in" data-target="#date1" data-toggle="datetimepicker" />
                             </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="date" id="date2" data-target-input="nearest">
+                                <input type="text" class="form-control datetimepicker-input" placeholder="Check out" data-target="#date2" data-toggle="datetimepicker"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select">
+                                <option selected>Adult</option>
+                                <option value="1">Adult 1</option>
+                                <option value="2">Adult 2</option>
+                                <option value="3">Adult 3</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select">
+                                <option selected>Child</option>
+                                <option value="1">Child 1</option>
+                                <option value="2">Child 2</option>
+                                <option value="3">Child 3</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary w-100">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('about')
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
+                <h6 class="section-title text-start text-primary text-uppercase">About Us</h6>
+                <h1 class="mb-4">Welcome to <span class="text-primary text-uppercase">Hotelier</span></h1>
+                <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
+                <div class="row g-3 pb-4">
+                    <div class="col-sm-4 wow fadeIn" data-wow-delay="0.1s">
+                        <div class="border rounded p-1">
+                            <div class="border rounded text-center p-4">
+                                <i class="fa fa-hotel fa-2x text-primary mb-2"></i>
+                                <h2 class="mb-1" data-toggle="counter-up">1234</h2>
+                                <p class="mb-0">Rooms</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 wow fadeIn" data-wow-delay="0.3s">
+                        <div class="border rounded p-1">
+                            <div class="border rounded text-center p-4">
+                                <i class="fa fa-users-cog fa-2x text-primary mb-2"></i>
+                                <h2 class="mb-1" data-toggle="counter-up">1234</h2>
+                                <p class="mb-0">Staffs</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 wow fadeIn" data-wow-delay="0.5s">
+                        <div class="border rounded p-1">
+                            <div class="border rounded text-center p-4">
+                                <i class="fa fa-users fa-2x text-primary mb-2"></i>
+                                <h2 class="mb-1" data-toggle="counter-up">1234</h2>
+                                <p class="mb-0">Clients</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="btn btn-primary py-3 px-5 mt-2" href="">Explore More</a>
+            </div>
+            <div class="col-lg-6">
+                <div class="row g-3">
+                    <div class="col-6 text-end">
+                        <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.1s" src="img/about-1.jpg" style="margin-top: 25%;">
+                    </div>
+                    <div class="col-6 text-start">
+                        <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.3s" src="img/about-2.jpg">
+                    </div>
+                    <div class="col-6 text-end">
+                        <img class="img-fluid rounded w-50 wow zoomIn" data-wow-delay="0.5s" src="img/about-3.jpg">
+                    </div>
+                    <div class="col-6 text-start">
+                        <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.7s" src="img/about-4.jpg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('room')
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title text-center text-primary text-uppercase">Our Rooms</h6>
+            <h1 class="mb-5">Explore Our <span class="text-primary text-uppercase">Rooms</span></h1>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="room-item shadow rounded overflow-hidden">
+                    <div class="position-relative">
+                        <img class="img-fluid" src="img/room-1.jpg" alt="">
+                        <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">$100/Night</small>
+                    </div>
+                    <div class="p-4 mt-2">
+                        <div class="d-flex justify-content-between mb-3">
+                            <h5 class="mb-0">Junior Suite</h5>
+                            <div class="ps-2">
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-3">
+                            <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2"></i>3 Bed</small>
+                            <small class="border-end me-3 pe-3"><i class="fa fa-bath text-primary me-2"></i>2 Bath</small>
+                            <small><i class="fa fa-wifi text-primary me-2"></i>Wifi</small>
+                        </div>
+                        <p class="text-body mb-3">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
+                        <div class="d-flex justify-content-between">
+                            <a class="btn btn-sm btn-primary rounded py-2 px-4" href="">View Detail</a>
+                            <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="room-item shadow rounded overflow-hidden">
+                    <div class="position-relative">
+                        <img class="img-fluid" src="img/room-2.jpg" alt="">
+                        <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">$100/Night</small>
+                    </div>
+                    <div class="p-4 mt-2">
+                        <div class="d-flex justify-content-between mb-3">
+                            <h5 class="mb-0">Executive Suite</h5>
+                            <div class="ps-2">
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-3">
+                            <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2"></i>3 Bed</small>
+                            <small class="border-end me-3 pe-3"><i class="fa fa-bath text-primary me-2"></i>2 Bath</small>
+                            <small><i class="fa fa-wifi text-primary me-2"></i>Wifi</small>
+                        </div>
+                        <p class="text-body mb-3">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
+                        <div class="d-flex justify-content-between">
+                            <a class="btn btn-sm btn-primary rounded py-2 px-4" href="">View Detail</a>
+                            <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+                <div class="room-item shadow rounded overflow-hidden">
+                    <div class="position-relative">
+                        <img class="img-fluid" src="img/room-3.jpg" alt="">
+                        <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">$100/Night</small>
+                    </div>
+                    <div class="p-4 mt-2">
+                        <div class="d-flex justify-content-between mb-3">
+                            <h5 class="mb-0">Super Deluxe</h5>
+                            <div class="ps-2">
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-3">
+                            <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2"></i>3 Bed</small>
+                            <small class="border-end me-3 pe-3"><i class="fa fa-bath text-primary me-2"></i>2 Bath</small>
+                            <small><i class="fa fa-wifi text-primary me-2"></i>Wifi</small>
+                        </div>
+                        <p class="text-body mb-3">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
+                        <div class="d-flex justify-content-between">
+                            <a class="btn btn-sm btn-primary rounded py-2 px-4" href="">View Detail</a>
+                            <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">Book Now</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</div>
 @endsection
 
-@section('accommodation_area')
-    <section class="accomodation_area section_gap">
-        <div class="container">
-            <div class="section_title text-center">
-                <h2 class="title_color">Hotel Accomodation</h2>
-                <p>We all live in an age that belongs to the young at heart. Life that is becoming extremely fast, </p>
+@section('video')
+<div class="container-xxl py-5 px-0 wow zoomIn" data-wow-delay="0.1s">
+    <div class="row g-0">
+        <div class="col-md-6 bg-dark d-flex align-items-center">
+            <div class="p-5">
+                <h6 class="section-title text-start text-white text-uppercase mb-3">Luxury Living</h6>
+                <h1 class="text-white mb-4">Discover A Brand Luxurious Hotel</h1>
+                <p class="text-white mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
+                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3">Our Rooms</a>
+                <a href="" class="btn btn-light py-md-3 px-md-5">Book A Room</a>
             </div>
-            <div class="row mb_30">
-                <?php
-                    $rooms = [
-                        ['image' => 'room1.jpg', 'title' => 'Single Deluxe Room', 'price' => 200],
-                        ['image' => 'room2.jpg', 'title' => 'Honeymoon Suit', 'price' => 750],
-                        ['image' => 'room3.jpg', 'title' => 'Economy Double', 'price' => 200],
-                        ['image' => 'room4.jpg', 'title' => 'Family Suite', 'price' => 300]
-                    ];
-                ?>
-                @for ($index = 1; $index <= 4; $index++)
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="accomodation_item text-center">
-                            <div class="hotel_img">
-                                <img src="{{ asset('client_assets/image/' . $rooms[$index - 1]['image']) }}" alt="">
-                                <a href="#" class="btn theme_btn button_hover">Book Now</a>
-                            </div>
-                            <a href="#"><h4 class="sec_h4">{{ $rooms[$index - 1]['title'] }}</h4></a>
-                            <h5>${{ $rooms[$index - 1]['price'] }}<small>/night</small></h5>
+        </div>
+        <div class="col-md-6">
+            <div class="video">
+                <button type="button" class="btn-play" data-bs-toggle="modal" data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-bs-target="#videoModal">
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Youtube Video</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- 16:9 aspect ratio -->
+                <div class="ratio ratio-16x9">
+                    <iframe class="embed-responsive-item" src="" id="video" allowfullscreen allowscriptaccess="always"
+                        allow="autoplay"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('service')
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title text-center text-primary text-uppercase">Our Services</h6>
+            <h1 class="mb-5">Explore Our <span class="text-primary text-uppercase">Services</span></h1>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <a class="service-item rounded" href="">
+                    <div class="service-icon bg-transparent border rounded p-1">
+                        <div class="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
+                            <i class="fa fa-hotel fa-2x text-primary"></i>
                         </div>
                     </div>
-                @endfor
+                    <h5 class="mb-3">Rooms & Appartment</h5>
+                    <p class="text-body mb-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
+                </a>
             </div>
-        </div>
-    </section>
-@endsection
-
-@section('facilities_area')
-    <section class="facilities_area section_gap">
-        <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background="">
-        </div>
-        <div class="container">
-            <div class="section_title text-center">
-                <h2 class="title_w">Royal Facilities</h2>
-                <p>Who are in extremely love with eco friendly system.</p>
-            </div>
-            <div class="row mb_30">
-                <div class="col-lg-4 col-md-6">
-                    <div class="facilities_item">
-                        <h4 class="sec_h4"><i class="lnr lnr-dinner"></i>Restaurant</h4>
-                        <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="facilities_item">
-                        <h4 class="sec_h4"><i class="lnr lnr-bicycle"></i>Sports CLub</h4>
-                        <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="facilities_item">
-                        <h4 class="sec_h4"><i class="lnr lnr-shirt"></i>Swimming Pool</h4>
-                        <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="facilities_item">
-                        <h4 class="sec_h4"><i class="lnr lnr-car"></i>Rent a Car</h4>
-                        <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="facilities_item">
-                        <h4 class="sec_h4"><i class="lnr lnr-construction"></i>Gymnesium</h4>
-                        <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="facilities_item">
-                        <h4 class="sec_h4"><i class="lnr lnr-coffee-cup"></i>Bar</h4>
-                        <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-@endsection
-
-@section('about_history_area')
-    <section class="about_history_area section_gap">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 d_flex align-items-center">
-                    <div class="about_content ">
-                        <h2 class="title title_color">About Us <br>Our History<br>Mission & Vision</h2>
-                        <p>inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially in the workplace. That’s why it’s crucial that, as women, our behavior on the job is beyond reproach. inappropriate behavior is often laughed.</p>
-                        <a href="#" class="button_hover theme_btn_two">Request Custom Price</a>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <img class="img-fluid" src="{{ asset('client_assets/image/about_bg.jpg') }}" alt="img">
-                </div>
-            </div>
-        </div>
-    </section>
-@endsection
-
-@section('testimonial_area')
-    <section class="testimonial_area section_gap">
-        <div class="container">
-            <div class="section_title text-center">
-                <h2 class="title_color">Testimonial from our Clients</h2>
-                <p>The French Revolution constituted for the conscience of the dominant aristocratic class a fall from </p>
-            </div>
-            <div class="testimonial_slider owl-carousel">
-                @for ($index = 1 ; $index < 10 ; $index++)
-                    <div class="media testimonial_item">
-                        <img class="rounded-circle" src="{{ asset('client_assets/image/testtimonial-1.jpg') }}" alt="">
-                        <div class="media-body">
-                            <p>{{ $index }} As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
-                            <a href="#"><h4 class="sec_h4">User {{ $index }}</h4></a>
-                            <div class="star">
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star"></i></a>
-                                <a href="#"><i class="fa fa-star-half-o"></i></a>
-                            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+                <a class="service-item rounded" href="">
+                    <div class="service-icon bg-transparent border rounded p-1">
+                        <div class="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
+                            <i class="fa fa-utensils fa-2x text-primary"></i>
                         </div>
                     </div>
-                @endfor
+                    <h5 class="mb-3">Food & Restaurant</h5>
+                    <p class="text-body mb-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
+                </a>
             </div>
-        </div>
-    </section>
-@endsection
-
-@section('latest_blog_area')
-    <section class="latest_blog_area section_gap">
-        <div class="container">
-            <div class="section_title text-center">
-                <h2 class="title_color">latest posts from blog</h2>
-                <p>The French Revolution constituted for the conscience of the dominant aristocratic class a fall from </p>
-            </div>
-            <div class="row mb_30">
-                @for ($index = 1; $index <=3 ; $index++)
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-recent-blog-post">
-                            <div class="thumb">
-                                <img class="img-fluid" src="{{ asset('client_assets/image/blog/blog-' . $index . '.jpg') }}" alt="post">
-                            </div>
-                            <div class="details">
-                                <div class="tags">
-                                    <a href="#" class="button_hover tag_btn">Travel</a>
-                                    <a href="#" class="button_hover tag_btn">Life Style</a>
-                                </div>
-                                <a href="#"><h4 class="sec_h4">Blog Post Title {{ $index }}</h4></a>
-                                <p>Self-doubt and fear interfere with our ability to achieve or set goals. Self-doubt and fear are</p>
-                                <h6 class="date title_color">31st January,2018</h6>
-                            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <a class="service-item rounded" href="">
+                    <div class="service-icon bg-transparent border rounded p-1">
+                        <div class="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
+                            <i class="fa fa-spa fa-2x text-primary"></i>
                         </div>
                     </div>
-                @endfor 
+                    <h5 class="mb-3">Spa & Fitness</h5>
+                    <p class="text-body mb-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
+                <a class="service-item rounded" href="">
+                    <div class="service-icon bg-transparent border rounded p-1">
+                        <div class="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
+                            <i class="fa fa-swimmer fa-2x text-primary"></i>
+                        </div>
+                    </div>
+                    <h5 class="mb-3">Sports & Gaming</h5>
+                    <p class="text-body mb-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <a class="service-item rounded" href="">
+                    <div class="service-icon bg-transparent border rounded p-1">
+                        <div class="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
+                            <i class="fa fa-glass-cheers fa-2x text-primary"></i>
+                        </div>
+                    </div>
+                    <h5 class="mb-3">Event & Party</h5>
+                    <p class="text-body mb-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+                <a class="service-item rounded" href="">
+                    <div class="service-icon bg-transparent border rounded p-1">
+                        <div class="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
+                            <i class="fa fa-dumbbell fa-2x text-primary"></i>
+                        </div>
+                    </div>
+                    <h5 class="mb-3">GYM & Yoga</h5>
+                    <p class="text-body mb-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
+                </a>
             </div>
         </div>
-    </section>
+    </div>
+</div>
 @endsection
 
-@section('scripts')
-    <script src="{{ asset('client_assets/js/jquery-3.2.1.min.js') }}"></script>
-    <script src="{{ asset('client_assets/js/popper.js') }}"></script>
-    <script src="{{ asset('client_assets/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('client_assets/vendors/owl-carousel/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('client_assets/js/jquery.ajaxchimp.min.js') }}"></script>
-    <script src="{{ asset('client_assets/js/mail-script.js') }}"></script>
-    <script src="{{ asset('client_assets/vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.js') }}"></script>
-    <script src="{{ asset('client_assets/vendors/nice-select/js/jquery.nice-select.js') }}"></script>
-    <script src="{{ asset('client_assets/js/mail-script.js') }}"></script>
-    <script src="{{ asset('client_assets/js/stellar.js') }}"></script>
-    <script src="{{ asset('client_assets/vendors/lightbox/simpleLightbox.min.js') }}"></script>
-    <script src="{{ asset('client_assets/js/custom.js') }}"></script>
+@section('testimonial')
+<div class="container-xxl testimonial my-5 py-5 bg-dark wow zoomIn" data-wow-delay="0.1s">
+    <div class="container">
+        <div class="owl-carousel testimonial-carousel py-5">
+            <div class="testimonial-item position-relative bg-white rounded overflow-hidden">
+                <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd et erat magna eos</p>
+                <div class="d-flex align-items-center">
+                    <img class="img-fluid flex-shrink-0 rounded" src="img/testimonial-1.jpg" style="width: 45px; height: 45px;">
+                    <div class="ps-3">
+                        <h6 class="fw-bold mb-1">Client Name</h6>
+                        <small>Profession</small>
+                    </div>
+                </div>
+                <i class="fa fa-quote-right fa-3x text-primary position-absolute end-0 bottom-0 me-4 mb-n1"></i>
+            </div>
+            <div class="testimonial-item position-relative bg-white rounded overflow-hidden">
+                <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd et erat magna eos</p>
+                <div class="d-flex align-items-center">
+                    <img class="img-fluid flex-shrink-0 rounded" src="img/testimonial-2.jpg" style="width: 45px; height: 45px;">
+                    <div class="ps-3">
+                        <h6 class="fw-bold mb-1">Client Name</h6>
+                        <small>Profession</small>
+                    </div>
+                </div>
+                <i class="fa fa-quote-right fa-3x text-primary position-absolute end-0 bottom-0 me-4 mb-n1"></i>
+            </div>
+            <div class="testimonial-item position-relative bg-white rounded overflow-hidden">
+                <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd et erat magna eos</p>
+                <div class="d-flex align-items-center">
+                    <img class="img-fluid flex-shrink-0 rounded" src="img/testimonial-3.jpg" style="width: 45px; height: 45px;">
+                    <div class="ps-3">
+                        <h6 class="fw-bold mb-1">Client Name</h6>
+                        <small>Profession</small>
+                    </div>
+                </div>
+                <i class="fa fa-quote-right fa-3x text-primary position-absolute end-0 bottom-0 me-4 mb-n1"></i>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
+
+@section('team')
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title text-center text-primary text-uppercase">Our Team</h6>
+            <h1 class="mb-5">Explore Our <span class="text-primary text-uppercase">Staffs</span></h1>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="rounded shadow overflow-hidden">
+                    <div class="position-relative">
+                        <img class="img-fluid" src="img/team-1.jpg" alt="">
+                        <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
+                            <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <div class="text-center p-4 mt-3">
+                        <h5 class="fw-bold mb-0">Full Name</h5>
+                        <small>Designation</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="rounded shadow overflow-hidden">
+                    <div class="position-relative">
+                        <img class="img-fluid" src="img/team-2.jpg" alt="">
+                        <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
+                            <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <div class="text-center p-4 mt-3">
+                        <h5 class="fw-bold mb-0">Full Name</h5>
+                        <small>Designation</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="rounded shadow overflow-hidden">
+                    <div class="position-relative">
+                        <img class="img-fluid" src="img/team-3.jpg" alt="">
+                        <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
+                            <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <div class="text-center p-4 mt-3">
+                        <h5 class="fw-bold mb-0">Full Name</h5>
+                        <small>Designation</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                <div class="rounded shadow overflow-hidden">
+                    <div class="position-relative">
+                        <img class="img-fluid" src="img/team-4.jpg" alt="">
+                        <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
+                            <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <div class="text-center p-4 mt-3">
+                        <h5 class="fw-bold mb-0">Full Name</h5>
+                        <small>Designation</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('newsletter')
+<div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 border rounded p-1">
+            <div class="border rounded text-center p-1">
+                <div class="bg-white rounded text-center p-5">
+                    <h4 class="mb-4">Subscribe Our <span class="text-primary text-uppercase">Newsletter</span></h4>
+                    <div class="position-relative mx-auto" style="max-width: 400px;">
+                        <input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
+                        <button type="button" class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+@
