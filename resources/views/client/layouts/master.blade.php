@@ -17,11 +17,16 @@
         <!-- main css -->
         <link rel="stylesheet" href="{{ asset('client_assets/css/style.css') }}">
         <link rel="stylesheet" href="{{ asset('client_assets/css/responsive.css') }}">
+        <!-- Icon -->
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        <!-- GSAP -->
     </head>
     <body>
         <!--================Header Area =================-->
         @include('client.blocks.header')
         <!--================Header Area =================-->
+
 
         <!--================Banner Area =================-->
         @yield('banner_area');
@@ -35,7 +40,7 @@
         @yield('facilities_area')
         <!--================ Facilities Area  =================-->
 
-        
+
 
         <!--================ About History Area  =================-->
         @yield('about_history_area')

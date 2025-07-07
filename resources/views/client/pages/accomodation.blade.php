@@ -15,57 +15,50 @@
 </section>
 @endsection
 
+
+<?php
+    $popularRoomTypes = [
+        ['image' => 'client_assets/image/room1.jpg','name' => 'Double Deluxe Room', 'price' => 250, 'description' => 'A comfortable room with modern amenities.'],
+        ['image' => 'client_assets/image/room2.jpg','name' => 'Single Deluxe Room', 'price' => 200, 'description' => 'Perfect for solo travelers with all essential facilities.'],
+        ['image' => 'client_assets/image/room3.jpg','name' => 'Honeymoon Suite', 'price' => 750, 'description' => 'Luxury suite designed for couples with a romantic setting.'],
+        ['image' => 'client_assets/image/room4.jpg','name' => 'Economy Double', 'price' => 200, 'description' => 'Affordable double room with basic amenities.'],
+    ];
+
+    $roomTypes = [
+        ['image' => 'client_assets/image/room1.jpg','name' => 'Double Deluxe Room', 'price' => 250, 'description' => 'A comfortable room with modern amenities.'],
+        ['image' => 'client_assets/image/room2.jpg','name' => 'Single Deluxe Room', 'price' => 200, 'description' => 'Perfect for solo travelers with all essential facilities.'],
+        ['image' => 'client_assets/image/room3.jpg','name' => 'Honeymoon Suite', 'price' => 750, 'description' => 'Luxury suite designed for couples with a romantic setting.'],
+        ['image' => 'client_assets/image/room4.jpg','name' => 'Economy Double', 'price' => 200, 'description' => 'Affordable double room with basic amenities.'],
+        ['image' => 'client_assets/image/room1.jpg','name' => 'Double Deluxe Room', 'price' => 250, 'description' => 'A comfortable room with modern amenities.'],
+        ['image' => 'client_assets/image/room2.jpg','name' => 'Single Deluxe Room', 'price' => 200, 'description' => 'Perfect for solo travelers with all essential facilities.'],
+        ['image' => 'client_assets/image/room3.jpg','name' => 'Honeymoon Suite', 'price' => 750, 'description' => 'Luxury suite designed for couples with a romantic setting.'],
+        ['image' => 'client_assets/image/room4.jpg','name' => 'Economy Double', 'price' => 200, 'description' => 'Affordable double room with basic amenities.'],
+    ];
+?>
+
 @section('accommodation_area')
     <section class="accomodation_area section_gap">
     <div class="container">
         <div class="section_title text-center">
-        <h2 class="title_color">Special Accomodation</h2>
+        <h2 class="title_color">Popular Accomodation</h2>
         <p>
             We all live in an age that belongs to the young at heart. Life that
             is becoming extremely fast,
         </p>
         </div>
         <div class="row mb_30">
-        <div class="col-lg-3 col-sm-6">
-            <div class="accomodation_item text-center">
-            <div class="hotel_img">
-                <img src="image/room1.jpg" alt="" />
-                <a href="#" class="btn theme_btn button_hover">Book Now</a>
-            </div>
-            <a href="#"><h4 class="sec_h4">Double Deluxe Room</h4></a>
-            <h5>$250<small>/night</small></h5>
-            </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-            <div class="accomodation_item text-center">
-            <div class="hotel_img">
-                <img src="image/room2.jpg" alt="" />
-                <a href="#" class="btn theme_btn button_hover">Book Now</a>
-            </div>
-            <a href="#"><h4 class="sec_h4">Single Deluxe Room</h4></a>
-            <h5>$200<small>/night</small></h5>
-            </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-            <div class="accomodation_item text-center">
-            <div class="hotel_img">
-                <img src="image/room3.jpg" alt="" />
-                <a href="#" class="btn theme_btn button_hover">Book Now</a>
-            </div>
-            <a href="#"><h4 class="sec_h4">Honeymoon Suit</h4></a>
-            <h5>$750<small>/night</small></h5>
-            </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-            <div class="accomodation_item text-center">
-            <div class="hotel_img">
-                <img src="image/room4.jpg" alt="" />
-                <a href="#" class="btn theme_btn button_hover">Book Now</a>
-            </div>
-            <a href="#"><h4 class="sec_h4">Economy Double</h4></a>
-            <h5>$200<small>/night</small></h5>
-            </div>
-        </div>
+            @foreach ($popularRoomTypes as $name)
+                <div class="col-lg-3 col-sm-6">
+                    <div class="accomodation_item text-center">
+                    <div class="hotel_img">
+                        <img src="{{ asset($name['image']) }}" alt="" />
+                        <a href="#" class="btn theme_btn button_hover">Book Now</a>
+                    </div>
+                    <a href="#"><h4 class="sec_h4">{{ $name['name'] }}</h4></a>
+                    <h5>{{ $name['price'] }}<small>/night</small></h5>
+                    </div>
+                </div>
+            @endforeach
         </div>
     </div>
     </section>
@@ -149,116 +142,42 @@
         </div>
     </section>
     <section class="accomodation_area section_gap">
-      <div class="container">
-        <div class="section_title text-center">
-          <h2 class="title_color">Normal Accomodation</h2>
-          <p>
-            We all live in an age that belongs to the young at heart. Life that
-            is becoming extremely fast,
-          </p>
+        <div class="container">
+            <div class="section_title text-center">
+                <h2 class="title_color">Normal Accomodation</h2>
+                <p>
+                    We all live in an age that belongs to the young at heart. Life that
+                    is becoming extremely fast,
+                </p>
+            </div>
+            <div class="row accomodation_two">
+                @foreach ($roomTypes as $room )
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="accomodation_item text-center">
+                        <div class="hotel_img">
+                            <img src="{{ asset($room['image']) }}" alt="" />
+                            <a href="#" class="btn theme_btn button_hover">Book Now</a>
+                        </div>
+                        <a href="#"><h4 class="sec_h4">{{ $room['name'] }}</h4></a>
+                        <h5>{{ $room['price'] }}<small>/night</small></h5>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
         </div>
-        <div class="row accomodation_two">
-          <div class="col-lg-3 col-sm-6">
-            <div class="accomodation_item text-center">
-              <div class="hotel_img">
-                <img src="image/room1.jpg" alt="" />
-                <a href="#" class="btn theme_btn button_hover">Book Now</a>
-              </div>
-              <a href="#"><h4 class="sec_h4">Double Deluxe Room</h4></a>
-              <h5>$250<small>/night</small></h5>
-            </div>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-            <div class="accomodation_item text-center">
-              <div class="hotel_img">
-                <img src="image/room2.jpg" alt="" />
-                <a href="#" class="btn theme_btn button_hover">Book Now</a>
-              </div>
-              <a href="#"><h4 class="sec_h4">Single Deluxe Room</h4></a>
-              <h5>$200<small>/night</small></h5>
-            </div>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-            <div class="accomodation_item text-center">
-              <div class="hotel_img">
-                <img src="image/room3.jpg" alt="" />
-                <a href="#" class="btn theme_btn button_hover">Book Now</a>
-              </div>
-              <a href="#"><h4 class="sec_h4">Honeymoon Suit</h4></a>
-              <h5>$750<small>/night</small></h5>
-            </div>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-            <div class="accomodation_item text-center">
-              <div class="hotel_img">
-                <img src="image/room4.jpg" alt="" />
-                <a href="#" class="btn theme_btn button_hover">Book Now</a>
-              </div>
-              <a href="#"><h4 class="sec_h4">Economy Double</h4></a>
-              <h5>$200<small>/night</small></h5>
-            </div>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-            <div class="accomodation_item text-center">
-              <div class="hotel_img">
-                <img src="image/room1.jpg" alt="" />
-                <a href="#" class="btn theme_btn button_hover">Book Now</a>
-              </div>
-              <a href="#"><h4 class="sec_h4">Double Deluxe Room</h4></a>
-              <h5>$250<small>/night</small></h5>
-            </div>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-            <div class="accomodation_item text-center">
-              <div class="hotel_img">
-                <img src="image/room2.jpg" alt="" />
-                <a href="#" class="btn theme_btn button_hover">Book Now</a>
-              </div>
-              <a href="#"><h4 class="sec_h4">Single Deluxe Room</h4></a>
-              <h5>$200<small>/night</small></h5>
-            </div>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-            <div class="accomodation_item text-center">
-              <div class="hotel_img">
-                <img src="image/room3.jpg" alt="" />
-                <a href="#" class="btn theme_btn button_hover">Book Now</a>
-              </div>
-              <a href="#"><h4 class="sec_h4">Honeymoon Suit</h4></a>
-              <h5>$750<small>/night</small></h5>
-            </div>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-            <div class="accomodation_item text-center">
-              <div class="hotel_img">
-                <img src="image/room4.jpg" alt="" />
-                <a href="#" class="btn theme_btn button_hover">Book Now</a>
-              </div>
-              <a href="#"><h4 class="sec_h4">Economy Double</h4></a>
-              <h5>$200<small>/night</small></h5>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
 @endsection
 
-@section('facilities_area')
-
-@endsection
-
-@section('about_history_area')
-
-@endsection
-
-@section('testimonial_area')
-
-@endsection
-
-@section('latest_blog_area')
-
-@endsection
-
 @section('scripts')
-
+<script src="{{ asset('client_assets/js/jquery-3.2.1.min.js') }}"></script>
+<script src="{{ asset('client_assets/js/popper.js') }}"></script>
+<script src="{{ asset('client_assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('client_assets/vendors/owl-carousel/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('client_assets/js/jquery.ajaxchimp.min.js') }}"></script>
+<script src="{{ asset('client_assets//vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.js') }}"></script>
+<script src="{{ asset('client_assets/vendors/nice-select/js/jquery.nice-select.js') }}"></script>
+<script src="{{ asset('client_assets/js/mail-script.js') }}"></script>
+<script src="{{ asset('client_assets/js/stellar.js') }}"></script>
+<script src="{{ asset('client_assets/vendors/lightbox/simpleLightbox.min.js') }}"></script>
+<script src="{{ asset('client_assets/js/custom.js') }}"></script>
 @endsection
