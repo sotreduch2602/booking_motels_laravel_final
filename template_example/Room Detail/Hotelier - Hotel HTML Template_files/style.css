@@ -181,7 +181,7 @@
         opacity: 0;
         visibility: hidden;
         transition: .5s;
-
+        
     }
 
     .navbar .dropdown-menu.fade-down {
@@ -231,7 +231,7 @@
         position: relative;
         min-height: 450px;
     }
-
+    
     #header-carousel .carousel-item img,
     .header-carousel .owl-carousel-item img {
         position: absolute;
