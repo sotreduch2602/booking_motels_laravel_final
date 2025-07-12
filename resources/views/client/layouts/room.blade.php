@@ -126,7 +126,7 @@
                     <div class="bg-light p-4 mb-5 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
                         <h4 class="mb-4">Room Types</h4>
                         <a class="d-block position-relative mb-3" href="https://demo.htmlcodex.com/pro/hotelier/room-list.html">
-                            <img class="img-fluid" src="./Hotelier - Hotel HTML Template_files/cat-1.jpg" alt="">
+                            <img class="img-fluid" style="height: 150px" src="{{asset('client_assets/img/cat-1.jpg')}}" alt="">
                             <div class="d-flex position-absolute top-0 start-0 w-100 h-100 p-3" style="background: rgba(0,0,0,.3);">
                                 <h5 class="text-white m-0 mt-auto">luxury Room</h5>
                             </div>
@@ -150,7 +150,7 @@
                     <div class="border p-1 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
                         <div class="border p-4">
                             <h4 class="mb-4">Help &amp; Support</h4>
-                            <p>Lorem sed erat elitr magna magna labore duo elitr ipsum duo. Et sed duo rebum lorem sed stet sed</p>
+                            <p>We’re here to assist you with any questions or issues you may have. Our team is dedicated to providing quick and effective solutions to ensure your experience is smooth and hassle-free. Contact us anytime for support or guidance.</p>
                             <div class="bg-primary text-center p-3">
                                 <h4 class="text-white m-0">+012 345 67890</h4>
                             </div>
