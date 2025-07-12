@@ -19,13 +19,13 @@ Route::get('/home', function () {
 });
 
 Route::get('/room', function () {
-    return view('client.pages.room',[
+    return view('client.pages.room.room',[
         'title' => 'Room'
     ]);
 })->name('client.pages.room');
 
 Route::get('/room/detail', function () {
-    return view('client.pages.room-detail',[
+    return view('client.pages.room.room-detail',[
         'title' => 'Room Detail'
     ]);
 })->name('client.page.detail');
@@ -40,7 +40,7 @@ Route::get('/service', function () {
     return view('client.pages.service', [
         'title' => 'Service'
     ]);
-});
+})->name('client.pages.service');
 
 Route::get('/contact', function () {
     return view('client.pages.contact', [

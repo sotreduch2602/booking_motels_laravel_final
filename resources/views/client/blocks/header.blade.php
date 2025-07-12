@@ -1,7 +1,7 @@
 <div class="container-fluid bg-dark px-0">
     <div class="row gx-0">
         <div class="col-lg-3 bg-dark d-none d-lg-block">
-            <a href="index.html" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
+            <a href="{{route('client.pages.home')}}" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
                 <h1 class="m-0 text-primary text-uppercase">Hotelier</h1>
             </a>
         </div>
@@ -36,12 +36,12 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a href="home" class="nav-item nav-link active">Home</a>
-                        <a href="room" class="nav-item nav-link">Rooms</a>
-                        <a href="service" class="nav-item nav-link">Services</a>
+                        <a href="{{route('client.pages.home')}}" class="nav-item nav-link active">Home</a>
+                        <a href="{{route('client.pages.room')}}" class="nav-item nav-link">Rooms</a>
+                        <a href="{{route('client.pages.service')}}" class="nav-item nav-link">Services</a>
                         <a href="contact" class="nav-item nav-link">Contact</a>
                     </div>
-                    <a href="https://htmlcodex.com/hotel-html-template-pro" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block">Login<i class="fa fa-arrow-right ms-3"></i></a>
+                    <a href="/login" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block">Login<i class="fa fa-arrow-right ms-3"></i></a>
                 </div>
             </nav>
         </div>
