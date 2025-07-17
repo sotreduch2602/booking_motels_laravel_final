@@ -6,17 +6,11 @@
         @csrf
 
         <div class="flex justify-center p-2">
-            <x-originalComponent.my-button class="ms-3">
+            <x-originalComponent.my-button href="{{route('google.redirect')}}" class="ms-3">
                 <span class="mr-2">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512" width="16" height="16" fill="currentColor">
                         <path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/>
                     </svg>
-                </span>
-                Facebook
-            </x-originalComponent.my-button>
-            <x-originalComponent.my-button class="ms-3">
-                <span class="mr-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16" fill="currentColor"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64h98.2V334.2H109.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H255V480H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64z"/></svg>
                 </span>
                 Google
             </x-originalComponent.my-button>
