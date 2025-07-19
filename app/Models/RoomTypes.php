@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class RoomTypes extends Model
 {
-    /** @use HasFactory<\Database\Factories\RoomTypesFactory> */
-    use HasFactory;
+    protected $table = 'room_types';
+
+    public function Rooms()
+    {
+        return $this->hasMany(Rooms::class, 'room_type_id');
+    }
 }

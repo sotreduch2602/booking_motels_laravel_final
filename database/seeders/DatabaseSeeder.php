@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Rooms;
 use App\Models\User;
 use App\Models\RoomTypes;
+use App\Models\Reviews;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,14 +16,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        // Create room types
-        RoomTypes::factory(8)->create();
-
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::factory(10)->create();
+        Rooms::factory(10)->create();
+        Reviews::factory(10)->create();
     }
 }

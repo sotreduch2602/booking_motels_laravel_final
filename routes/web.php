@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\Client\HomeController;
+use App\Http\Controllers\Client\RoomsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 require __DIR__.'/auth.php';
@@ -26,11 +28,11 @@ Route::middleware('auth')->group(function () {
 
 
 //Client
-Route::get('/', function () {
-    return view('client.pages.home', [
-        'title' => 'Home'
-    ]);
-})->name('client.pages.home');
+Route::get('/', [HomeController::class,'index'])->name('client.pages.home');
+
+Route::get('/home', function () {
+    return redirect()->route('client.pages.home');
+});
 
 Route::get('/404', function() {
     return view('client.pages.404', [
@@ -38,21 +40,9 @@ Route::get('/404', function() {
     ]);
 })->name('client.pages.404');
 
-Route::get('/home', function () {
-    return redirect()->route('client.pages.home');
-});
+Route::get('/room', [RoomsController::class,'index'])->name('client.pages.room');
 
-Route::get('/room', function () {
-    return view('client.pages.room.room',[
-        'title' => 'Room'
-    ]);
-})->name('client.pages.room');
-
-Route::get('/room/detail', function () {
-    return view('client.pages.room.room-detail',[
-        'title' => 'Room Detail'
-    ]);
-})->name('client.page.detail');
+Route::get('/room/detail/{room}', [RoomsController::class,'detail'])->name('client.page.detail');
 
 Route::get('/booking', function () {
     return view('client.pages.booking', [

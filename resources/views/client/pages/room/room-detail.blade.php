@@ -22,7 +22,7 @@
         </div>
 
         <div class="d-flex align-items-center mb-4">
-            <h1 class="mb-0">Junior Suite</h1>
+            <h1 class="mb-0">{{ $room->RoomType->name }}</h1>
             <div class="ps-3">
                 <small class="fa fa-star text-primary"></small>
                 <small class="fa fa-star text-primary"></small>
@@ -33,31 +33,20 @@
         </div>
 
         <div class="d-flex flex-wrap pb-4 m-n1">
-            <small class="bg-light rounded py-1 px-3 m-1"><i class="fa fa-bed text-primary me-2"></i>3 Bed</small>
-            <small class="bg-light rounded py-1 px-3 m-1"><i class="fa fa-bath text-primary me-2"></i>2 Bath</small>
-            <small class="bg-light rounded py-1 px-3 m-1"><i class="fa fa-wifi text-primary me-2"></i>Wifi</small>
-            <small class="bg-light rounded py-1 px-3 m-1"><i class="fa fa-tv text-primary me-2"></i>TV</small>
-            <small class="bg-light rounded py-1 px-3 m-1"><i class="fa fa-fan text-primary me-2"></i>AC</small>
-            <small class="bg-light rounded py-1 px-3 m-1"><i class="fa fa-user-cog text-primary me-2"></i>Laundry</small>
-            <small class="bg-light rounded py-1 px-3 m-1"><i class="fa fa-utensils text-primary me-2"></i>Dinner</small>
+            @php
+                $amenities = Str::of($room->RoomType->amenities)->explode(', ')->all();
+            @endphp
+            <small class="bg-light rounded py-1 px-3 m-1">{{ $room->max_people }} People</small>
+            @foreach ($amenities as $item )
+                <small class="bg-light rounded py-1 px-3 m-1">{{ $item }}</small>
+            @endforeach
         </div>
 
-        <p>Sadipscing labore amet rebum est et justo gubergren. Et eirmod ipsum sit diam ut
-            magna lorem. Nonumy vero labore lorem sanctus rebum et lorem magna kasd, stet
-            amet magna accusam consetetur eirmod. Kasd accusam sit ipsum sadipscing et at at
-            sanctus et. Ipsum sit gubergren dolores et, consetetur justo invidunt at et
-            aliquyam ut et vero clita. Diam sea sea no sed dolores diam nonumy, gubergren
-            sit stet no diam kasd vero.
-        </p>
-        <p class="mb-5">Voluptua est takimata stet invidunt sed rebum nonumy stet, clita aliquyam dolores
-            vero stet consetetur elitr takimata rebum sanctus. Sit sed accusam stet sit
-            nonumy kasd diam dolores, sanctus lorem kasd duo dolor dolor vero sit et. Labore
-            ipsum duo sanctus amet eos et. Consetetur no sed et aliquyam ipsum justo et,
-            clita lorem sit vero amet amet est dolor elitr, stet et no diam sit. Dolor erat
-            justo dolore sit invidunt.
-        </p>
-
         <div class="tab-class wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+            @php
+                $Reviews = $room->Hotel->Review;
+                // dd($Reviews)
+            @endphp
             <ul class="nav nav-pills d-flex justify-content-between border-bottom mb-4">
                 <li class="nav-item">
                     <a class="d-flex align-items-center py-3 active" data-bs-toggle="pill" href="https://demo.htmlcodex.com/pro/hotelier/room-detail.html#tab-1">
@@ -80,65 +69,22 @@
                 <li class="nav-item">
                     <a class="d-flex align-items-center py-3" data-bs-toggle="pill" href="https://demo.htmlcodex.com/pro/hotelier/room-detail.html#tab-4">
                         <i class="fa fa-star text-primary me-2"></i>
-                        <h6 class="mb-0">Reviews(3)</h6>
+                        <h6 class="mb-0">Reviews({{ $Reviews->count() }})</h6>
                     </a>
                 </li>
             </ul>
             <div class="tab-content">
                 <div id="tab-1" class="tab-pane fade show p-0 active">
-                    <p>Sadipscing labore amet rebum est et justo gubergren. Et eirmod ipsum sit diam ut
-                        magna lorem. Nonumy vero labore lorem sanctus rebum et lorem magna kasd, stet
-                        amet magna accusam consetetur eirmod. Kasd accusam sit ipsum sadipscing et at at
-                        sanctus et. Ipsum sit gubergren dolores et, consetetur justo invidunt at et
-                        aliquyam ut et vero clita. Diam sea sea no sed dolores diam nonumy, gubergren
-                        sit stet no diam kasd vero.
-                    </p>
-                    <p>Voluptua est takimata stet invidunt sed rebum nonumy stet, clita aliquyam dolores
-                        vero stet consetetur elitr takimata rebum sanctus. Sit sed accusam stet sit
-                        nonumy kasd diam dolores, sanctus lorem kasd duo dolor dolor vero sit et. Labore
-                        ipsum duo sanctus amet eos et. Consetetur no sed et aliquyam ipsum justo et,
-                        clita lorem sit vero amet amet est dolor elitr, stet et no diam sit. Dolor erat
-                        justo dolore sit invidunt.
+                    <p>
+                        {{ $room->description }}
                     </p>
                 </div>
                 <div id="tab-2" class="tab-pane fade show p-0">
-                    <p>Voluptua est takimata stet invidunt sed rebum nonumy stet, clita aliquyam dolores
-                        vero stet consetetur elitr takimata rebum sanctus. Sit sed accusam stet sit
-                        nonumy kasd diam dolores, sanctus lorem kasd duo dolor dolor vero sit et. Labore
-                        ipsum duo sanctus amet eos et. Consetetur no sed et aliquyam ipsum justo et,
-                        clita lorem sit vero amet amet est dolor elitr, stet et no diam sit. Dolor erat
-                        justo dolore sit invidunt.
-                    </p>
                     <div class="row g-4">
-                        <div class="col-sm-6 d-flex align-items-center justify-content-between">
-                            <span>Nightly:</span>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <span>Price Per Night:</span>
                             <hr class="flex-grow-1 my-0 mx-3">
-                            <span>$100</span>
-                        </div>
-                        <div class="col-sm-6 d-flex align-items-center justify-content-between">
-                            <span>Weekly:</span>
-                            <hr class="flex-grow-1 my-0 mx-3">
-                            <span>$100</span>
-                        </div>
-                        <div class="col-sm-6 d-flex align-items-center justify-content-between">
-                            <span>Monthly:</span>
-                            <hr class="flex-grow-1 my-0 mx-3">
-                            <span>$100</span>
-                        </div>
-                        <div class="col-sm-6 d-flex align-items-center justify-content-between">
-                            <span>Weekends:</span>
-                            <hr class="flex-grow-1 my-0 mx-3">
-                            <span>$100</span>
-                        </div>
-                        <div class="col-sm-6 d-flex align-items-center justify-content-between">
-                            <span>Additional Guest:</span>
-                            <hr class="flex-grow-1 my-0 mx-3">
-                            <span>$100</span>
-                        </div>
-                        <div class="col-sm-6 d-flex align-items-center justify-content-between">
-                            <span>Security Deposit:</span>
-                            <hr class="flex-grow-1 my-0 mx-3">
-                            <span>$100</span>
+                            <span>${{ $room->price_per_night }}</span>
                         </div>
                     </div>
                 </div>
@@ -169,59 +115,31 @@
                             <span>info@example.com</span>
                         </div>
                     </div>
-                    <iframe class="position-relative rounded w-100 h-100" src="./Hotelier - Hotel HTML Template_files/embed.html" frameborder="0" style="min-height: 350px; border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d501726.54073840944!2d106.36555953170755!3d10.754618127805522!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317529292e8d3dd1%3A0xf15f5aad773c112b!2zVGjDoG5oIHBo4buRIEjhu5MgQ2jDrSBNaW5oLCBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1752932404730!5m2!1svi!2s" width="832" height="351" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
                 <div id="tab-4" class="tab-pane fade show p-0">
                     <div class="mb-4">
-                        <h4 class="mb-4">3 Reviews</h4>
-                        <div class="d-flex mb-4">
-                            <img src="./Hotelier - Hotel HTML Template_files/user.jpg" class="img-fluid rounded" style="width: 45px; height: 45px;">
-                            <div class="ps-3">
-                                <h6>John Doe <small class="text-body fw-normal fst-italic">01 Jan 2045</small></h6>
-                                <div class="mb-2">
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
+                        <h4 class="mb-4">{{ $Reviews->count() }} Reviews</h4>
+                        @foreach ($Reviews as $review )
+                            <div class="d-flex mb-4">
+                                <img src="{{ asset('client_assets/img/team-1.jpg') }}" class="img-fluid rounded" style="width: 45px; height: 45px;">
+                                <div class="ps-3">
+                                    <h6>{{ $review->Users->full_name }} <small class="text-body fw-normal fst-italic">01 Jan 2045</small></h6>
+                                    <div class="mb-2">
+                                        @for ($j = 1; $j <= $review->rating; $j++)
+                                            <small class="fa fa-star text-primary"></small>
+                                        @endfor
+
+                                        @for ($i = 1; $i <= 5 - $review->rating; $i++ )
+                                            <small class="fa fa-star text-secondary"></small>
+                                        @endfor
+                                    </div>
+                                    <p class="mb-2">Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua, tempor labore
+                                        accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed eirmod</p>
+                                    <a href="https://demo.htmlcodex.com/pro/hotelier/room-detail.html"><i class="fa fa-reply me-2"></i> Reply</a>
                                 </div>
-                                <p class="mb-2">Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua, tempor labore
-                                    accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed eirmod</p>
-                                <a href="https://demo.htmlcodex.com/pro/hotelier/room-detail.html"><i class="fa fa-reply me-2"></i> Reply</a>
                             </div>
-                        </div>
-                        <div class="d-flex mb-4">
-                            <img src="./Hotelier - Hotel HTML Template_files/user.jpg" class="img-fluid rounded" style="width: 45px; height: 45px;">
-                            <div class="ps-3">
-                                <h6>John Doe <small class="text-body fw-normal fst-italic">01 Jan 2045</small></h6>
-                                <div class="mb-2">
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                </div>
-                                <p class="mb-2">Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua, tempor labore
-                                    accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed eirmod</p>
-                                <a href="https://demo.htmlcodex.com/pro/hotelier/room-detail.html"><i class="fa fa-reply me-2"></i> Reply</a>
-                            </div>
-                        </div>
-                        <div class="d-flex ms-5 mb-4">
-                            <img src="./Hotelier - Hotel HTML Template_files/user.jpg" class="img-fluid rounded" style="width: 45px; height: 45px;">
-                            <div class="ps-3">
-                                <h6>John Doe <small class="text-body fw-normal fst-italic">01 Jan 2045</small></h6>
-                                <div class="mb-2">
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                </div>
-                                <p class="mb-2">Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua, tempor labore
-                                    accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed eirmod</p>
-                                <a href="https://demo.htmlcodex.com/pro/hotelier/room-detail.html"><i class="fa fa-reply me-2"></i> Reply</a>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                     <div class="bg-light p-4 p-md-5">
                         <h4 class="mb-4">Leave A Review</h4>
