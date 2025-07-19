@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('country', 100)->nullable();
             $table->text('description')->nullable();
             $table->text('amenities')->nullable();
-            $table->unsignedBigInteger('owner_id');
+            $table->unsignedBigInteger('owner_id')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();
         });
