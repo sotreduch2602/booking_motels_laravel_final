@@ -19,7 +19,7 @@
 @endsection
 
 @section('booking')
-    <!-- Booking Start -->
+    {{-- <!-- Booking Start -->
     <div class="container-fluid booking pb-5 wow fadeIn" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeIn;">
         <div class="container">
             <div class="bg-white shadow" style="padding: 35px;">
@@ -61,8 +61,9 @@
             </div>
         </div>
     </div>
-    <!-- Booking End -->
+    <!-- Booking End --> --}}
 @endsection
+
 
 @section('room')
     <!-- Room Start -->

@@ -22,7 +22,7 @@ class GoogleController extends Controller
         // dd($accountUser);
 
         $user = User::updateOrCreate([
-            'id' => $accountUser->id
+            'google_id' => $accountUser->id
         ], [
             'google_id' => $accountUser->id,
             'full_name' => $accountUser->name,

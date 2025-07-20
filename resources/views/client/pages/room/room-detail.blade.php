@@ -30,6 +30,9 @@
                 <small class="fa fa-star text-primary"></small>
                 <small class="fa fa-star text-primary"></small>
             </div>
+            <div class="ms-auto">
+                <a class="btn btn-sm btn-dark rounded py-2 px-4" href="room">Book Now</a>
+            </div>
         </div>
 
         <div class="d-flex flex-wrap pb-4 m-n1">
@@ -124,7 +127,7 @@
                             <div class="d-flex mb-4">
                                 <img src="{{ asset('client_assets/img/team-1.jpg') }}" class="img-fluid rounded" style="width: 45px; height: 45px;">
                                 <div class="ps-3">
-                                    <h6>{{ $review->Users->full_name }} <small class="text-body fw-normal fst-italic">01 Jan 2045</small></h6>
+                                    <h6>{{ $review->Users->full_name }} <small class="text-body fw-normal fst-italic">{{ \Carbon\Carbon::parse($review->created_at)->format('d M Y') }}</small></h6>
                                     <div class="mb-2">
                                         @for ($j = 1; $j <= $review->rating; $j++)
                                             <small class="fa fa-star text-primary"></small>
@@ -136,7 +139,7 @@
                                     </div>
                                     <p class="mb-2">Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua, tempor labore
                                         accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed eirmod</p>
-                                    <a href="https://demo.htmlcodex.com/pro/hotelier/room-detail.html"><i class="fa fa-reply me-2"></i> Reply</a>
+                                    {{-- <a href="https://demo.htmlcodex.com/pro/hotelier/room-detail.html"><i class="fa fa-reply me-2"></i> Reply</a> --}}
                                 </div>
                             </div>
                         @endforeach
@@ -150,15 +153,6 @@
                                     <div id="halfstarsReview" class="fs-3 me-2" rating="true" style="color: rgb(254, 161, 22);"><i class="far fa-star" style="cursor: pointer;"></i><i class="far fa-star" style="cursor: pointer;"></i><i class="far fa-star" style="cursor: pointer;"></i><i class="far fa-star" style="cursor: pointer;"></i><i class="far fa-star" style="cursor: pointer;"></i></div>
                                     <input type="text" value="" readonly="" id="halfstarsInput" class="border-0 bg-transparent" style="width: 30px;">
                                 </div>
-                                <div class="col-12 col-sm-6">
-                                    <input type="text" class="form-control bg-white border-0" placeholder="Your Name" style="height: 55px;">
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <input type="email" class="form-control bg-white border-0" placeholder="Your Email" style="height: 55px;">
-                                </div>
-                                <div class="col-12">
-                                    <input type="text" class="form-control bg-white border-0" placeholder="Website" style="height: 55px;">
-                                </div>
                                 <div class="col-12">
                                     <textarea class="form-control bg-white border-0" rows="5" placeholder="Comment"></textarea>
                                 </div>
@@ -171,5 +165,37 @@
                 </div>
             </div>
         </div>
+    </div>
+@endsection
+
+@section('rooms-sidebar')
+    <div class="col-lg-4">
+        <!-- Category Start -->
+        <div class="bg-light p-4 mb-5 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+            <h4 class="mb-4">Room Types</h4>
+            @foreach ($roomTypes as $types )
+                <a class="d-block position-relative mb-3" href="{{ route('client.pages.room', [
+                        'room_type' => $types->name
+                    ]) }}">
+                    <img class="img-fluid" style="height: 120px" src="{{asset('client_assets/img/'.$types->image_preview)}}" alt="{{ $types->image_preview }}">
+                    <div class="d-flex position-absolute top-0 start-0 w-100 h-100 p-3" style="background: rgba(0,0,0,.3);">
+                        <h5 class="text-white m-0 mt-auto">{{ $types->name }}</h5>
+                    </div>
+                </a>
+            @endforeach
+        </div>
+        <!-- Category End -->
+
+        <!-- Support Start -->
+        <div class="border p-1 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+            <div class="border p-4">
+                <h4 class="mb-4">Help &amp; Support</h4>
+                <p>We’re here to assist you with any questions or issues you may have. Our team is dedicated to providing quick and effective solutions to ensure your experience is smooth and hassle-free. Contact us anytime for support or guidance.</p>
+                <div class="bg-primary text-center p-3">
+                    <h4 class="text-white m-0">+012 345 67890</h4>
+                </div>
+            </div>
+        </div>
+        <!-- Support End -->
     </div>
 @endsection

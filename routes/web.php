@@ -42,13 +42,11 @@ Route::get('/404', function() {
 
 Route::get('/room', [RoomsController::class,'index'])->name('client.pages.room');
 
-Route::get('/room/detail/{room}', [RoomsController::class,'detail'])->name('client.page.detail');
+Route::get('/room/detail/{room}', [RoomsController::class,'detail'])->name('client.pages.detail');
 
-Route::get('/booking', function () {
-    return view('client.pages.booking', [
-        'title' => 'Booking'
-    ]);
-})->name('client.pages.booking');
+Route::get('/room/booking/{room}',[RoomsController::class,'booking'] )->name('client.pages.booking');
+
+Route::post('/room/booking/{room}',[RoomsController::class,'storeBooking'] )->name('client.pages.booking.store');
 
 Route::get('/service', function () {
     return view('client.pages.service', [

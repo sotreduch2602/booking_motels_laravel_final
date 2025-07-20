@@ -30,8 +30,8 @@
                     <p class="text-body mb-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
                 </div>
                 <div class="d-flex justify-content-between border-top mt-auto p-4">
-                    <a class="btn btn-sm btn-primary rounded py-2 px-4" href="{{ route('client.page.detail', ['room'=> $item]) }}">View Detail</a>
-                    <a class="btn btn-sm btn-dark rounded py-2 px-4" href="room">Book Now</a>
+                    <a class="btn btn-sm btn-primary rounded py-2 px-4" href="{{ route('client.pages.detail', ['room'=> $item]) }}">View Detail</a>
+                    <a class="btn btn-sm btn-dark rounded py-2 px-4" href="{{ route('client.pages.booking', ['room'=> $item])  }}">Book Now</a>
                 </div>
             </div>
         </div>
@@ -73,11 +73,11 @@
             <form action="" method="get">
                 <div class="row g-3 p-4 pt-2">
                     <div class="col-12">
-                        <input type="range" class="form-range" id="budget" name="budget" min="0" max="500"
+                        <input type="range" class="form-range" id="budget" name="budget" min="0" max="1000" value="1000"
                         oninput="document.getElementById('budgetValue').textContent = '$' + this.value">
                         <label for="budget" class="form-label">
                             Budget:
-                            <span id="budgetValue">$0 - $500</span>
+                            <span id="budgetValue">$0 - $1000</span>
                         </label>
                     </div>
                     <div class="col-12">
@@ -92,7 +92,9 @@
                         <select class="form-select" name='room_type'>
                             <option selected value="">-- Room Types --</option>
                             @foreach ($roomTypes as $types )
-                                <option name='' value="{{ $types->name }}">{{ $types->name }}</option>
+                                <option value="{{ $types->name }}" {{ request('room_type') == $types->name ? 'selected' : '' }}>
+                                    {{ $types->name }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -108,7 +110,9 @@
         <div class="bg-light p-4 mb-5 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
             <h4 class="mb-4">Room Types</h4>
             @foreach ($roomTypes as $types )
-                <a class="d-block position-relative mb-3" href="https://demo.htmlcodex.com/pro/hotelier/room-list.html">
+                <a class="d-block position-relative mb-3" href="{{ route('client.pages.room', [
+                        'room_type' => $types->name
+                    ]) }}">
                     <img class="img-fluid" style="height: 120px" src="{{asset('client_assets/img/'.$types->image_preview)}}" alt="{{ $types->image_preview }}">
                     <div class="d-flex position-absolute top-0 start-0 w-100 h-100 p-3" style="background: rgba(0,0,0,.3);">
                         <h5 class="text-white m-0 mt-auto">{{ $types->name }}</h5>

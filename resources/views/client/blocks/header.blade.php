@@ -40,8 +40,27 @@
                         <a href="{{route('client.pages.room')}}" class="nav-item nav-link">Rooms</a>
                         <a href="{{route('client.pages.service')}}" class="nav-item nav-link">Services</a>
                         <a href="contact" class="nav-item nav-link">Contact</a>
+                        <div class="nav-item dropdown">
+                            <a href="https://demo.htmlcodex.com/pro/hotelier/booking-1.html#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                            <div class="dropdown-menu fade-down rounded-0 m-0">
+                                <a href="https://demo.htmlcodex.com/pro/hotelier/service-1.html" class="dropdown-item">Service 1</a>
+                                <a href="https://demo.htmlcodex.com/pro/hotelier/service-2.html" class="dropdown-item">Service 2</a>
+                            </div>
+                        </div>
                     </div>
-                    <a href="/login" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block">Login<i class="fa fa-arrow-right ms-3"></i></a>
+
+                    <div class="nav-item dropdown">
+                        @if (Auth::user())
+                            <a href="https://demo.htmlcodex.com/pro/hotelier/booking-1.html#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Welcome, {{ Auth::user()->full_name }}</a>
+                            <div class="dropdown-menu fade-down rounded-0 m-0" style="">
+                                <a href="" class="dropdown-item">Dashboard</a>
+                                <a href="" class="dropdown-item text-danger">Logout</a>
+                            </div>
+                        @else
+                            <a href="/login" class="btn btn-primary rounded-0 px-md-5 d-none d-lg-block">Login<i class="fa fa-arrow-right ms-3"></i></a>
+                        @endif
+
+                    </div>
                 </div>
             </nav>
         </div>
