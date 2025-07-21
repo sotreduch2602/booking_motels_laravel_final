@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Client\RoomsController;
@@ -62,4 +63,5 @@ Route::get('/contact', function () {
 })->name('client.pages.contact');
 
 //Admin
-
+Route::get('/admin', [DashboardController::class,'index'])->name('admin.pages.index');
+Route::get('/admin/booking', [DashboardController::class, 'bookingView'])->name('admin.pages.booking');
