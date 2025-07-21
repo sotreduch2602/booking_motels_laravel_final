@@ -16,7 +16,7 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
+Route::get('/dashboard1', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -26,34 +26,35 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
-//Client
-Route::get('/', [HomeController::class,'index'])->name('client.pages.home');
-
-Route::get('/home', function () {
-    return redirect()->route('client.pages.home');
-});
-
 Route::get('/404', function() {
     return view('client.pages.404', [
         'title' => '404 Not Found'
     ]);
 })->name('client.pages.404');
 
+//Client
+//HomePage
+Route::get('/', [HomeController::class,'index'])->name('client.pages.home');
+Route::get('/home', function () {
+    return redirect()->route('client.pages.home');
+});
+
+//RoomsPage
 Route::get('/room', [RoomsController::class,'index'])->name('client.pages.room');
-
 Route::get('/room/detail/{room}', [RoomsController::class,'detail'])->name('client.pages.detail');
+Route::middleware('auth')->group(function () {
+    Route::get('/room/booking/{room}', [RoomsController::class, 'booking'])->name('client.pages.booking');
+    Route::post('/room/booking/{room}', [RoomsController::class, 'storeBooking'])->name('client.pages.booking.store');
+});
 
-Route::get('/room/booking/{room}',[RoomsController::class,'booking'] )->name('client.pages.booking');
-
-Route::post('/room/booking/{room}',[RoomsController::class,'storeBooking'] )->name('client.pages.booking.store');
-
+//ServicePage
 Route::get('/service', function () {
     return view('client.pages.service', [
         'title' => 'Service'
     ]);
 })->name('client.pages.service');
 
+//ContactPage
 Route::get('/contact', function () {
     return view('client.pages.contact', [
         'title' => 'Contact'
@@ -61,3 +62,4 @@ Route::get('/contact', function () {
 })->name('client.pages.contact');
 
 //Admin
+

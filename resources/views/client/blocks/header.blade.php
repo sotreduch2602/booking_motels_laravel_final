@@ -54,10 +54,16 @@
                             <a href="https://demo.htmlcodex.com/pro/hotelier/booking-1.html#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Welcome, {{ Auth::user()->full_name }}</a>
                             <div class="dropdown-menu fade-down rounded-0 m-0" style="">
                                 <a href="" class="dropdown-item">Dashboard</a>
-                                <a href="" class="dropdown-item text-danger">Logout</a>
+                                <form action="{{ route('logout') }}" method="post">
+                                    @csrf
+                                    <a onclick="event.preventDefault();
+                                        this.closest('form').submit();" class="dropdown-item text-danger">
+                                        Logout
+                                    </a>
+                                </form>
                             </div>
                         @else
-                            <a href="/login" class="btn btn-primary rounded-0 px-md-5 d-none d-lg-block">Login<i class="fa fa-arrow-right ms-3"></i></a>
+                            <a href="/login" class="nav-link rounded-0 px-md-5 d-none d-lg-block">Login<i class="fa fa-arrow-right ms-3"></i></a>
                         @endif
 
                     </div>
