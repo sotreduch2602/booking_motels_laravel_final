@@ -29,7 +29,7 @@
             </li>
 
             <li class="sidebar-item {{ $title === 'reviewView' ? 'active' : '' }}">
-                <a class="sidebar-link" href="{{ route('admin.pages.booking') }}">
+                <a class="sidebar-link" href="{{ route('admin.pages.review') }}">
                     <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">Review</span>
                 </a>
             </li>
@@ -38,12 +38,12 @@
                 Admin Dashboard
             </li>
 
-            <li class="sidebar-item {{ $title === 'index' ? 'active' : '' }}">
-                <a class="sidebar-link" href="{{ route('admin.pages.index') }}">
+            <li class="sidebar-item {{ $title === 'analyticView' ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('admin.pages.analytic') }}">
                     <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Analytics</span>
                 </a>
             </li>
-            
+
             <li class="sidebar-item {{ $title === 'dashboardView' ? 'active' : '' }} ">
                 <a class="sidebar-link" href="{{ route('admin.pages.dashboard') }}">
                     <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>

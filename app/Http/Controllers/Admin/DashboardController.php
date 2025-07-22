@@ -11,16 +11,10 @@ class DashboardController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function analyticView()
     {
-        return view('admin.pages.index', [
-            'title' => 'index'
-        ]);
-    }
-
-    public function profileView(){
-        return view('admin.pages.profile', [
-            'title' => 'profileView',
+        return view('admin.pages.analytic', [
+            'title' => 'analyticView'
         ]);
     }
 
@@ -29,11 +23,9 @@ class DashboardController extends Controller
             'title' => 'dashboardView'
         ]);
     }
-    public function bookingView(){
-        return view('admin.pages.booking', [
-            'title' => 'bookingView'
-        ]);
-    }
+
+
+
 
     /**
      * Show the form for creating a new resource.

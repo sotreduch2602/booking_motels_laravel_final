@@ -21,6 +21,13 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function profileView(Request $request){
+        return view('admin.pages.profile', [
+            'title' => 'profileView',
+            'user' => $request->user(),
+        ]);
+    }
+
     /**
      * Update the user's profile information.
      */

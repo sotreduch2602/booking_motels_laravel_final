@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ReviewsController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Client\RoomsController;
@@ -63,7 +65,8 @@ Route::get('/contact', function () {
 })->name('client.pages.contact');
 
 //Admin
-Route::get('/admin', [DashboardController::class,'index'])->name('admin.pages.index');
-Route::get('/admin/booking', [DashboardController::class, 'bookingView'])->name('admin.pages.booking');
-Route::get('/admin/dashboard', [DashboardController::class, 'dashboardView'])->name('admin.pages.dashboard');
-Route::get('/admin/profile', [DashboardController::class,'profileView'])->name('admin.pages.profile');
+Route::get('/dashboard/analytic', [DashboardController::class,'analyticView'])->name('admin.pages.analytic');
+Route::get('/dashboard/review', [ReviewsController::class, 'reviewView'])->name('admin.pages.review');
+Route::get('/dashboard/booking', [BookingController::class, 'bookingView'])->name('admin.pages.booking');
+Route::get('/dashboard/admin', [DashboardController::class, 'dashboardView'])->name('admin.pages.dashboard');
+Route::get('/dashboard/profile', [ProfileController::class,'profileView'])->name('admin.pages.profile');
