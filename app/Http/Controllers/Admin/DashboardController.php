@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -12,11 +13,26 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.index');
+        return view('admin.pages.index', [
+            'title' => 'index'
+        ]);
     }
 
+    public function profileView(){
+        return view('admin.pages.profile', [
+            'title' => 'profileView',
+        ]);
+    }
+
+    public function dashboardView(){
+        return view('admin.pages.dashboard', [
+            'title' => 'dashboardView'
+        ]);
+    }
     public function bookingView(){
-        return view('admin.pages.booking');
+        return view('admin.pages.booking', [
+            'title' => 'bookingView'
+        ]);
     }
 
     /**

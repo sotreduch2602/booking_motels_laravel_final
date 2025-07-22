@@ -65,3 +65,5 @@ Route::get('/contact', function () {
 //Admin
 Route::get('/admin', [DashboardController::class,'index'])->name('admin.pages.index');
 Route::get('/admin/booking', [DashboardController::class, 'bookingView'])->name('admin.pages.booking');
+Route::get('/admin/dashboard', [DashboardController::class, 'dashboardView'])->name('admin.pages.dashboard');
+Route::get('/admin/profile', [DashboardController::class,'profileView'])->name('admin.pages.profile');
