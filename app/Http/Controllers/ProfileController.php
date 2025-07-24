@@ -48,17 +48,14 @@ class ProfileController extends Controller
     {
         $user = $request->user();
         $validated = $request->validated();
-
-        $user->fill($validated);
-
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
+        if (isset($validated['name'])) {
+            unset($validated['name']);
         }
-
+        $user->fill($validated);
+        // Removed email_verified_at logic since column does not exist
         $user->save();
-
-    return Redirect::route('admin.pages.profile')->with('status', 'profile-updated');
-}
+        return Redirect::route('admin.pages.profile')->with('status', 'profile-updated');
+    }
 
 
     /**

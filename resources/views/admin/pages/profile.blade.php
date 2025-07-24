@@ -70,9 +70,9 @@
                             </div>
                             <div class="card-body h-100">
                                 <div class="mb-3">
-                                    <label for="name">Name</label>
-                                    <input id="name" name="name" type="text" class="form-control mb-1" placeholder="{{ Auth::user()->full_name }}" autofocus autocomplete="name">
-                                    <span class="text-danger">{{ $errors->first('name') }}</span>
+                                    <label for="full_name">Full Name</label>
+                                    <input id="full_name" name="full_name" type="text" class="form-control mb-1" placeholder="{{ Auth::user()->full_name }}" autofocus autocomplete="name">
+                                    <span class="text-danger">{{ $errors->first('full_name') }}</span>
                                 </div>
                                 <div class="mb-3">
                                     <label for="email">Email</label>
