@@ -12,8 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('bookings', function (Blueprint $table) {
-            // For MySQL: change ENUM values
+            // For MySQL: change ENUM values for payment_status
             $table->enum('payment_status', ['VNPay', 'COD'])->default('VNPay')->change();
+            // For MySQL: change ENUM values for status (remove 'confirmed')
+            $table->enum('status', ['pending', 'cancelled', 'completed'])->default('pending')->change();
         });
     }
 
@@ -23,8 +25,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('bookings', function (Blueprint $table) {
-            // Revert to previous ENUM values (adjust as needed)
+            // Revert to previous ENUM values for payment_status
             $table->enum('payment_status', ['pending', 'paid', 'failed'])->default('pending')->change();
+            // Revert to previous ENUM values for status (add 'confirmed' back)
+            $table->enum('status', ['pending', 'confirmed', 'cancelled', 'completed'])->default('pending')->change();
         });
     }
 };

@@ -32,7 +32,7 @@
                                             <td>2025-07-21</td>
                                             <td>2025-07-25</td>
                                             <td>$400</td>
-                                            <td><span class="badge bg-success">Confirmed</span></td>
+                                            <td><span class="badge bg-secondary">N/A</span></td>
                                             <td><span class="badge bg-success">Paid</span></td>
                                             <td>
                                                 <button class="btn btn-sm btn-primary">View</button>

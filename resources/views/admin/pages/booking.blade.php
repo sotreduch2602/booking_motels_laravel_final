@@ -34,10 +34,12 @@
                                                 <td>{{ $booking->check_out }}</td>
                                                 <td>${{ $booking->total_price }}</td>
                                                 <td>
-                                                    @if($booking->status == 'confirmed')
-                                                        <span class="badge bg-success">Confirmed</span>
-                                                    @elseif($booking->status == 'pending')
+                                                    @if($booking->status == 'pending')
                                                         <span class="badge bg-warning">Pending</span>
+                                                    @elseif($booking->status == 'cancelled')
+                                                        <span class="badge bg-danger">Cancelled</span>
+                                                    @elseif($booking->status == 'completed')
+                                                        <span class="badge bg-success">Completed</span>
                                                     @else
                                                         <span class="badge bg-secondary">{{ ucfirst($booking->status) }}</span>
                                                     @endif

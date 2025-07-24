@@ -23,7 +23,7 @@ class BookingFactory extends Factory
             'check_in' => $checkIn->format('Y-m-d'),
             'check_out' => $checkOut->format('Y-m-d'),
             'total_price' => $this->faker->randomFloat(2, 100, 2000),
-            'status' => $this->faker->randomElement(['pending', 'confirmed', 'cancelled', 'completed']),
+            'status' => $this->faker->randomElement(['pending', 'cancelled', 'completed']),
             'payment_status' => $this->faker->randomElement(['COD', 'VNPay']),
             'created_at' => now(),
             'updated_at' => now(),
