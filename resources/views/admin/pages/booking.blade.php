@@ -26,32 +26,45 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>101</td>
-                                            <td>Deluxe Room</td>
-                                            <td>2025-07-21</td>
-                                            <td>2025-07-25</td>
-                                            <td>$400</td>
-                                            <td><span class="badge bg-success">Confirmed</span></td>
-                                            <td><span class="badge bg-success">Paid</span></td>
-                                            <td>
-                                                <button class="btn btn-sm btn-primary">View</button>
-                                                <button class="btn btn-sm btn-danger">Cancel</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>102</td>
-                                            <td>Standard Room</td>
-                                            <td>2025-07-22</td>
-                                            <td>2025-07-26</td>
-                                            <td>$200</td>
-                                            <td><span class="badge bg-warning">Pending</span></td>
-                                            <td><span class="badge bg-danger">Unpaid</span></td>
-                                            <td>
-                                                <button class="btn btn-sm btn-primary">View</button>
-                                                <button class="btn btn-sm btn-danger">Cancel</button>
-                                            </td>
-                                        </tr>
+                                        @foreach($bookings as $booking)
+                                            <tr>
+                                                <td>{{ $booking->room->room_number }}</td>
+                                                <td>{{ $booking->room->RoomType->name ?? 'N/A' }}</td>
+                                                <td>{{ $booking->check_in}}</td>
+                                                <td>{{ $booking->check_out }}</td>
+                                                <td>${{ $booking->total_price }}</td>
+                                                <td>
+                                                    @if($booking->status == 'confirmed')
+                                                        <span class="badge bg-success">Confirmed</span>
+                                                    @elseif($booking->status == 'pending')
+                                                        <span class="badge bg-warning">Pending</span>
+                                                    @else
+                                                        <span class="badge bg-secondary">{{ ucfirst($booking->status) }}</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    {{$booking->payment_status}}
+                                                </td>
+                                                <td>
+                                                    <button
+                                                        class="btn btn-sm btn-primary view-receipt-btn"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#bookingReceiptModal"
+                                                        data-room-number="{{ $booking->room->room_number }}"
+                                                        data-room-type="{{ $booking->room->RoomType->name ?? 'N/A' }}"
+                                                        data-check-in="{{ $booking->check_in }}"
+                                                        data-check-out="{{ $booking->check_out }}"
+                                                        data-total-price="{{ $booking->total_price }}"
+                                                        data-status="{{ ucfirst($booking->status) }}"
+                                                        data-payment-status="{{ $booking->payment_status }}"
+                                                        data-created-at="{{ $booking->created_at }}"
+                                                    >
+                                                        View
+                                                    </button>
+                                                    <button class="btn btn-sm btn-danger">Cancel</button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -61,4 +74,46 @@
 
             </div>
     </main>
+
+    <!-- Booking Receipt Modal -->
+    <div class="modal fade" id="bookingReceiptModal" tabindex="-1" aria-labelledby="bookingReceiptModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bookingReceiptModalLabel">Booking Receipt</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Room Number:</strong> <span id="modalRoomNumber"></span></p>
+                <p><strong>Room Type:</strong> <span id="modalRoomType"></span></p>
+                <p><strong>Check-in:</strong> <span id="modalCheckIn"></span></p>
+                <p><strong>Check-out:</strong> <span id="modalCheckOut"></span></p>
+                <p><strong>Total Price:</strong> $<span id="modalTotalPrice"></span></p>
+                <p><strong>Status:</strong> <span id="modalStatus"></span></p>
+                <p><strong>Payment Status:</strong> <span id="modalPaymentStatus"></span></p>
+                <p><strong>Created At:</strong> <span id="modalCreatedAt"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var bookingModal = document.getElementById('bookingReceiptModal');
+    bookingModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        document.getElementById('modalRoomNumber').textContent = button.getAttribute('data-room-number');
+        document.getElementById('modalRoomType').textContent = button.getAttribute('data-room-type');
+        document.getElementById('modalCheckIn').textContent = button.getAttribute('data-check-in');
+        document.getElementById('modalCheckOut').textContent = button.getAttribute('data-check-out');
+        document.getElementById('modalTotalPrice').textContent = button.getAttribute('data-total-price');
+        document.getElementById('modalStatus').textContent = button.getAttribute('data-status');
+        document.getElementById('modalPaymentStatus').textContent = button.getAttribute('data-payment-status');
+        document.getElementById('modalCreatedAt').textContent = button.getAttribute('data-created-at');
+    });
+});
+</script>
 @endsection

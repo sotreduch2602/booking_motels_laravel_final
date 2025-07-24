@@ -46,4 +46,9 @@ class User extends Authenticatable
     public function Reviews(){
         return $this->hasMany(User::class, 'user_id');
     }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class, 'user_id');
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Booking;
 use App\Models\Rooms;
 use App\Models\User;
 use App\Models\RoomTypes;
@@ -16,8 +17,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
-        Rooms::factory(10)->create();
-        Reviews::factory(10)->create();
+        // User::factory(10)->create();
+        // Rooms::factory(10)->create();
+        // Reviews::factory(10)->create();
+        Booking::factory(3)->create();
     }
 }
