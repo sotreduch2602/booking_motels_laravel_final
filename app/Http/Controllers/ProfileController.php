@@ -44,6 +44,23 @@ class ProfileController extends Controller
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
+    public function update1(ProfileUpdateRequest $request): RedirectResponse
+    {
+        $user = $request->user();
+        $validated = $request->validated();
+
+        $user->fill($validated);
+
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
+        }
+
+        $user->save();
+
+    return Redirect::route('admin.pages.profile')->with('status', 'profile-updated');
+}
+
+
     /**
      * Delete the user's account.
      */

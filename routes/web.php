@@ -14,11 +14,6 @@ require __DIR__.'/auth.php';
 Route::get('/google/redirect', [GoogleController::class, 'redirect'])->name('google.redirect');
 Route::get('/google/callback',[GoogleController::class, 'callback'])->name('google.callback');
 
-
-Route::get('/welcome', function () {
-    return view('welcome');
-});
-
 Route::get('/dashboard1', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -65,8 +60,13 @@ Route::get('/contact', function () {
 })->name('client.pages.contact');
 
 //Admin
-Route::get('/dashboard/analytic', [DashboardController::class,'analyticView'])->name('admin.pages.analytic');
-Route::get('/dashboard/review', [ReviewsController::class, 'reviewView'])->name('admin.pages.review');
-Route::get('/dashboard/booking', [BookingController::class, 'bookingView'])->name('admin.pages.booking');
-Route::get('/dashboard/admin', [DashboardController::class, 'dashboardView'])->name('admin.pages.dashboard');
-Route::get('/dashboard/profile', [ProfileController::class,'profileView'])->name('admin.pages.profile');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard/analytic', [DashboardController::class,'analyticView'])->name('admin.pages.analytic');
+    Route::get('/dashboard/review', [ReviewsController::class, 'reviewView'])->name('admin.pages.review');
+    Route::get('/dashboard/booking', [BookingController::class, 'bookingView'])->name('admin.pages.booking');
+    Route::get('/dashboard/admin', [DashboardController::class, 'dashboardView'])->name('admin.pages.dashboard');
+
+    Route::get('/dashboard/profile', [ProfileController::class,'profileView'])->name('admin.pages.profile');
+    Route::patch('/dashboard/profile', [ProfileController::class, 'update1'])->name('admin.pages.profile.update');
+});

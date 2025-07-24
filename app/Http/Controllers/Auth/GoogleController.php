@@ -27,11 +27,11 @@ class GoogleController extends Controller
             'google_id' => $accountUser->id,
             'full_name' => $accountUser->name,
             'email' => $accountUser->email,
-            'password_hash' => Hash::make(uniqid())
+            'password' => Hash::make('password')
         ]);
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute:false));
+        return redirect(route('admin.pages.profile', absolute:false));
     }
 }
