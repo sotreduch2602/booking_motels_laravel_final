@@ -36,7 +36,7 @@
 	</div>
 
 	<script src="{{ asset('admin_assets/js/app.js') }}"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @yield('custom-js')
 </body>
 

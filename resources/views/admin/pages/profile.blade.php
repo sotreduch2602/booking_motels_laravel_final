@@ -4,8 +4,17 @@
     {{-- Main Content --}}
     <main class="content">
         <div class="container-fluid p-0">
-            <div class="mb-3">
-                <h1 class="h3 d-inline align-middle">Profile</h1>
+            <div class="row">
+                <div class="mb-3 col-md-4 col-xl-3">
+                    <h1 class="h3 d-inline align-middle">Profile</h1>
+                </div>
+                @if (session('msg'))
+                    <div class="mb-3 col-md-8 col-xl-9 bg-success bg-opacity-25">
+                        <h1 class="h3 d-inline align-middle">
+                            <span>{{ session('msg') }}</span>
+                        </h1>
+                    </div>
+                @endif
             </div>
             <div class="row">
                 <div class="col-md-4 col-xl-3">
@@ -22,16 +31,6 @@
                                 height="128"
                             />
                             <h5 class="card-title mb-2">{{ Auth::user()->full_name }}</h5>
-
-                            <div>
-                                <a class="btn btn-primary btn-sm" href="#"
-                                    >Follow</a
-                                >
-                                <a class="btn btn-primary btn-sm" href="#"
-                                    ><span data-feather="message-square"></span>
-                                    Message</a
-                                >
-                            </div>
                         </div>
 
                         <hr class="my-0" />
@@ -85,7 +84,7 @@
                                     <span class="text-danger">{{ $errors->first('phone') }}</span>
                                 </div>
                                 <div class="mb-3">
-                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <button id="save" type="submit" class="btn btn-primary">Save</button>
                                 </div>
                             </div>
                         </div>
@@ -114,52 +113,55 @@
                                     <span class="text-danger">{{ $errors->updatePassword->first('password_confirmation') }}</span>
                                 </div>
                                 <div class="mb-3">
-                                    <button type='submit' class="btn btn-primary">Save</button>
+                                    <button id="save" type='submit' class="btn btn-primary">Save</button>
                                 </div>
                             </div>
                         </div>
                     </form>
 
                     <div class="card">
-                        <form method="post" action="{{ route('profile.destroy') }}">
-                            @csrf
-                            @method('delete')
-                            <div class="card-header">
-                                <h5 class="card-title mb-3">Update Password</h5>
-                                <div class="mb-3">Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.</div>
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                    Delete account
-                                </button>
-                            </div>
-                        </form>
+                        <div class="card-header">
+                            <h5 class="card-title mb-3">Delete Account</h5>
+                            <div class="mb-3">Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.</div>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                Delete account
+                            </button>
+                            <span class="text-danger">{{ $errors->userDeletion->first('password') }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-            <div class="modal-dialog ">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5 " id="deleteModalLabel">Are you sure you want to delete your account?</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.</div>
-                    <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        placeholder="Password"
-                        class="form-control w-3/4 "
-                    >
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger">Delete Account</button>
-                </div>
+        <form method="post" action="{{ route('profile.destroy') }}">
+            @csrf
+            @method('delete')
+            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog ">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5 " id="deleteModalLabel">Are you sure you want to delete your account?</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.</div>
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            placeholder="Password"
+                            class="form-control w-3/4 "
+                        >
+                        <span class="text-danger">{{ $errors->userDeletion->first('password') }}</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Delete Account</button>
+                    </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
+
     </main>
 @endsection
