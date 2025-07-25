@@ -64,12 +64,16 @@ Route::get('/contact', function () {
 //Admin
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard/analytic', [DashboardController::class,'analyticView'])->name('admin.pages.analytic');
+    //User routes (cho phép cả user thường và admin)
     Route::get('/dashboard/review', [ReviewsController::class, 'reviewView'])->name('admin.pages.review');
     Route::get('/dashboard/booking', [BookingController::class, 'bookingView'])->name('admin.pages.booking');
     Route::get('/dashboard/booking/{booking}', [BookingController::class, 'bookingCancel'])->name('admin.pages.booking.cancel');
-    Route::get('/dashboard/admin', [DashboardController::class, 'dashboardView'])->name('admin.pages.dashboard');
-
     Route::get('/dashboard/profile', [ProfileController::class,'profileView'])->name('admin.pages.profile');
     Route::patch('/dashboard/profile', [ProfileController::class, 'update1'])->name('admin.pages.profile.update');
+});
+
+//Admin routes (chỉ cho phép admin)
+Route::middleware(['auth', \App\Http\Middleware\CheckIsAdmin::class])->group(function () {
+    Route::get('/dashboard/admin', [DashboardController::class, 'dashboardView'])->name('admin.pages.dashboard');
+    Route::get('/dashboard/analytic', [DashboardController::class,'analyticView'])->name('admin.pages.analytic');
 });

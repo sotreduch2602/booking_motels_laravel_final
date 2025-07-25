@@ -34,21 +34,23 @@
                 </a>
             </li>
 
-            <li class="sidebar-header">
-                Admin Dashboard
-            </li>
+            @if(Auth::user()->role === 1)
+                <li class="sidebar-header">
+                    Admin Dashboard
+                </li>
 
-            <li class="sidebar-item {{ $title === 'analyticView' ? 'active' : '' }}">
-                <a class="sidebar-link" href="{{ route('admin.pages.analytic') }}">
-                    <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Analytics</span>
-                </a>
-            </li>
+                <li class="sidebar-item {{ $title === 'analyticView' ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('admin.pages.analytic') }}">
+                        <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Analytics</span>
+                    </a>
+                </li>
 
-            <li class="sidebar-item {{ $title === 'dashboardView' ? 'active' : '' }} ">
-                <a class="sidebar-link" href="{{ route('admin.pages.dashboard') }}">
-                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
-                </a>
-            </li>
+                <li class="sidebar-item {{ $title === 'dashboardView' ? 'active' : '' }} ">
+                    <a class="sidebar-link" href="{{ route('admin.pages.dashboard') }}">
+                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+                    </a>
+                </li>
+            @endif
         </ul>
     </div>
 </nav>

@@ -36,6 +36,28 @@
 
 	<script src="{{ asset('admin_assets/js/app.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {{-- Hiển thị thông báo lỗi --}}
+    <script>
+        @if(session('error'))
+            Swal.fire({
+                title: "Lỗi!",
+                text: "{{ session('error') }}",
+                icon: "error",
+                confirmButtonText: "OK"
+            });
+        @endif
+
+        @if(session('success'))
+            Swal.fire({
+                title: "Thành công!",
+                text: "{{ session('success') }}",
+                icon: "success",
+                confirmButtonText: "OK"
+            });
+        @endif
+    </script>
+
     @yield('custom-js')
 </body>
 
