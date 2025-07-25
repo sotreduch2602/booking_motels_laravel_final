@@ -24,7 +24,7 @@
                         </div>
                         <div class="card-body text-center">
                             <img
-                                src="img/avatars/avatar-4.jpg"
+                                src="{{asset('admin_assets/img/avatars/avatar-4.jpg')}}"
                                 alt="{{ Auth::user()->full_name }}"
                                 class="img-fluid rounded-circle mb-2"
                                 width="128"
