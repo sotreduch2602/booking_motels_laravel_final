@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Validation\ValidationException;
 
 class RoomsController extends Controller
 {
@@ -115,30 +116,42 @@ class RoomsController extends Controller
 
     public function checkoutView(Request $request, Rooms $room)
     {
-        $request->validate([
-            'check_in' => 'required|date',
-            'check_out' => 'required|date|after:check_in',
-            'payment' => 'required',
-        ]);
+        try {
+            $request->validate([
+                'check_in' => 'required|date',
+                'check_out' => 'required|date|after:check_in',
+                'payment' => 'required',
+                'email' => 'required|email',
+            ]);
 
-        $booking = [
-            'name' => Auth::user()->full_name,
-            'user_id' => Auth::user()->id,
-            'email' => $request->email,
-            'check_in' => $request->check_in,
-            'check_out' => $request->check_out,
-            'city' => $request->city,
-            'room_id' => $room->id,
-            'room_type' => $request->room_type,
-            'room_number' => $request->room_number,
-            'payment' => $request->payment,
-        ];
+            $booking = [
+                'name' => Auth::user()->full_name,
+                'user_id' => Auth::user()->id,
+                'email' => $request->email,
+                'check_in' => $request->check_in,
+                'check_out' => $request->check_out,
+                'city' => $request->city,
+                'room_id' => $room->id,
+                'room_type' => $request->room_type,
+                'room_number' => $request->room_number,
+                'payment' => $request->payment,
+            ];
 
-        return view('client.pages.room.checkout', [
-            'title' => 'Checkout',
-            'booking' => $booking,
-            'room' => $room,
-        ]);
+            return view('client.pages.room.checkout', [
+                'title' => 'Checkout',
+                'booking' => $booking,
+                'room' => $room,
+            ]);
+        } catch (ValidationException $e) {
+            return back()
+                ->withErrors($e->errors())
+                ->withInput()
+                ->with('error', 'Vui lòng kiểm tra lại thông tin đặt phòng!');
+        } catch (Exception $e) {
+            return back()
+                ->withInput()
+                ->with('error', 'Có lỗi xảy ra: ' . $e->getMessage());
+        }
     }
 
     public function checkoutStore(Request $request)

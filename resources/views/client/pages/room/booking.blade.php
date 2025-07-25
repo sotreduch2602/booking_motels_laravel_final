@@ -55,20 +55,29 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input disabled type="email" class="form-control" id="email" name="email" placeholder="Your Email" value="{{Auth::user()->email}}">
+                                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Your Email" value="{{ old('email', Auth::user()->email) }}">
                                         <label for="email">Your Email</label>
+                                        @error('email')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating date" id="date3" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" id="check_in" name="check_in" placeholder="Check In" data-target="#date3" data-toggle="datetimepicker">
+                                        <input type="text" class="form-control datetimepicker-input @error('check_in') is-invalid @enderror" id="check_in" name="check_in" placeholder="Check In" data-target="#date3" data-toggle="datetimepicker" value="{{ old('check_in') }}">
                                         <label for="check_in">Check In</label>
+                                        @error('check_in')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating date" id="date4" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" id="check_out" name="check_out" placeholder="Check Out" data-target="#date4" data-toggle="datetimepicker">
+                                        <input type="text" class="form-control datetimepicker-input @error('check_out') is-invalid @enderror" id="check_out" name="check_out" placeholder="Check Out" data-target="#date4" data-toggle="datetimepicker" value="{{ old('check_out') }}">
                                         <label for="check_out">Check Out</label>
+                                        @error('check_out')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -94,11 +103,15 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <select class="form-select" id="select4" name="payment">
-                                            <option value="COD">Cash on delivery</option>
-                                            <option value="VNPay">VN Pay</option>
+                                        <select class="form-select @error('payment') is-invalid @enderror" id="select4" name="payment">
+                                            <option value="">Chọn phương thức thanh toán</option>
+                                            <option value="COD" {{ old('payment') == 'COD' ? 'selected' : '' }}>Cash on delivery</option>
+                                            <option value="VNPay" {{ old('payment') == 'VNPay' ? 'selected' : '' }}>VN Pay</option>
                                         </select>
                                         <label for="select4">Payment method</label>
+                                        @error('payment')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-12">
