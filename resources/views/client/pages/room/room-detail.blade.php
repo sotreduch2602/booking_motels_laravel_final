@@ -31,7 +31,7 @@
                 <small class="fa fa-star text-primary"></small>
             </div>
             <div class="ms-auto">
-                <a class="btn btn-sm btn-dark rounded py-2 px-4" href="room">Book Now</a>
+                <a class="btn btn-sm btn-dark rounded py-2 px-4" href="{{ route('client.pages.booking', ['room'=> $room])  }}">Book Now</a>
             </div>
         </div>
 
@@ -47,8 +47,7 @@
 
         <div class="tab-class wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
             @php
-                $Reviews = $room->Hotel->Review;
-                // dd($Reviews)
+                // $Reviews = $room->Hotel->Review->sortByDesc('id');
             @endphp
             <ul class="nav nav-pills d-flex justify-content-between border-bottom mb-4">
                 <li class="nav-item">
@@ -72,7 +71,7 @@
                 <li class="nav-item">
                     <a class="d-flex align-items-center py-3" data-bs-toggle="pill" href="https://demo.htmlcodex.com/pro/hotelier/room-detail.html#tab-4">
                         <i class="fa fa-star text-primary me-2"></i>
-                        <h6 class="mb-0">Reviews({{ $Reviews->count() }})</h6>
+                        <h6 class="mb-0">Reviews({{ $reviews->total() }})</h6>
                     </a>
                 </li>
             </ul>
@@ -122,8 +121,8 @@
                 </div>
                 <div id="tab-4" class="tab-pane fade show p-0">
                     <div class="mb-4">
-                        <h4 class="mb-4">{{ $Reviews->count() }} Reviews</h4>
-                        @foreach ($Reviews as $review )
+                        <h4 class="mb-4">{{ $reviews->total() }} Reviews</h4>
+                        @foreach ($reviews as $review )
                             <div class="d-flex mb-4">
                                 <img src="{{ asset('client_assets/img/team-1.jpg') }}" class="img-fluid rounded" style="width: 45px; height: 45px;">
                                 <div class="ps-3">
@@ -137,24 +136,26 @@
                                             <small class="fa fa-star text-secondary"></small>
                                         @endfor
                                     </div>
-                                    <p class="mb-2">Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua, tempor labore
-                                        accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed eirmod</p>
+                                    <p class="mb-2">{{$review->comment}}</p>
                                     {{-- <a href="https://demo.htmlcodex.com/pro/hotelier/room-detail.html"><i class="fa fa-reply me-2"></i> Reply</a> --}}
                                 </div>
                             </div>
                         @endforeach
+                        <div class="d-flex justify-content-center">
+                            {{ $reviews->appends(['tab' => 'review'])->links('pagination::bootstrap-4') }}
+                        </div>
                     </div>
                     <div class="bg-light p-4 p-md-5">
                         <h4 class="mb-4">Leave A Review</h4>
-                        <form>
+                        <form method="post" action="{{route('client.pages.detail.rating',['room' => $room])}}">
+                            @csrf
                             <div class="row g-3">
                                 <div class="col-12 d-flex align-items-center">
                                     <h6 class="mb-0 me-2">Rate Me:</h6>
-                                    <div id="halfstarsReview" class="fs-3 me-2" rating="true" style="color: rgb(254, 161, 22);"><i class="far fa-star" style="cursor: pointer;"></i><i class="far fa-star" style="cursor: pointer;"></i><i class="far fa-star" style="cursor: pointer;"></i><i class="far fa-star" style="cursor: pointer;"></i><i class="far fa-star" style="cursor: pointer;"></i></div>
-                                    <input type="text" value="" readonly="" id="halfstarsInput" class="border-0 bg-transparent" style="width: 30px;">
+                                    <input type="number" name="rating" min="1" max="5" style="width: 40px;">
                                 </div>
                                 <div class="col-12">
-                                    <textarea class="form-control bg-white border-0" rows="5" placeholder="Comment"></textarea>
+                                    <textarea name="comment" class="form-control bg-white border-0" rows="5" placeholder="Comment"></textarea>
                                 </div>
                                 <div class="col-12">
                                     <button class="btn btn-primary w-100 py-3" type="submit">Leave Your Review</button>
@@ -198,4 +199,20 @@
         </div>
         <!-- Support End -->
     </div>
-@endsection
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Lấy giá trị tab từ query string
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('tab') === 'review') {
+                // Bật tab review
+                document.querySelector('a[href*="#tab-4"]').classList.add('active');
+                document.querySelector('#tab-4').classList.add('active', 'show');
+                // Tắt tab đầu
+                document.querySelector('a[href*="#tab-1"]').classList.remove('active');
+                document.querySelector('#tab-1').classList.remove('active', 'show');
+            }
+        });
+    </script>
+    @endsection
+

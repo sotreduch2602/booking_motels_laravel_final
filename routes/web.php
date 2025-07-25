@@ -40,6 +40,7 @@ Route::get('/home', function () {
 //RoomsPage
 Route::get('/room', [RoomsController::class,'index'])->name('client.pages.room');
 Route::get('/room/detail/{room}', [RoomsController::class,'detail'])->name('client.pages.detail');
+Route::post('/room/detail/{room}', [RoomsController::class,'ratingComment'])->name('client.pages.detail.rating');
 Route::middleware('auth')->group(function () {
     Route::get('/room/booking/{room}', [RoomsController::class, 'booking'])->name('client.pages.booking');
     Route::get('/room/checkout/{room}', [RoomsController::class, 'checkoutView'])->name('client.pages.checkout');

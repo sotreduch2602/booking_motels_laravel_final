@@ -8,6 +8,7 @@ use App\Models\Rooms;
 use App\Models\RoomTypes;
 use Illuminate\Http\Request;
 use App\Models\Booking;
+use App\Models\Reviews;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -56,13 +57,49 @@ class RoomsController extends Controller
     public function detail(Rooms $room){
         $hotel = Hotel::all();
         $roomTypes = RoomTypes::all();
-
+        // Lấy reviews dạng paginate
+        $reviews = $room->Hotel->Review()->orderByDesc('id')->with('Users')->paginate(5);
         return view('client.pages.room.room-detail',[
         'title' => 'Rooms',
         'roomTypes' => $roomTypes,
         'room' => $room,
-        'hotel' => $hotel
+        'hotel' => $hotel,
+        'reviews' => $reviews
     ]);
+    }
+
+    public function ratingComment(Request $request, Rooms $room){
+
+        try{
+            DB::beginTransaction();
+
+            // Lấy user hiện tại
+            $user = Auth::user();
+
+            // Validate dữ liệu gửi lên
+            $request->validate([
+                'rating' => 'required|integer|min:1|max:5',
+                'comment' => 'required|string|max:1000',
+            ]);
+
+
+            // dd($room->hotel_id);
+            // Lưu đánh giá
+            Reviews::create([
+                'user_id' => $user->id,
+                'hotel_id' => $room->hotel_id,
+                'rating' => $request->rating,
+                'comment' => $request->comment,
+            ]);
+
+            DB::commit();
+            return back()->with('success', 'Đánh giá của bạn đã được gửi!');
+        }
+        catch(Exception $e){
+            DB::rollBack();
+            dd($e->getMessage());
+            return back()->with('error', 'Có lỗi xảy ra: ' . $e->getMessage());
+        }
     }
 
     public function booking(Rooms $room){

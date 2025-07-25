@@ -18,4 +18,11 @@ class Reviews extends Model
     public function Hotel(){
         return $this->belongsTo(Hotel::class,'hotel_id');
     }
+
+    protected $fillable = [
+        'user_id',
+        'hotel_id',
+        'rating',
+        'comment',
+    ];
 }
