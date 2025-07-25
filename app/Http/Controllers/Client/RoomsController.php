@@ -137,7 +137,7 @@ class RoomsController extends Controller
             return redirect()->route('client.pages.room')->with('success', 'Đặt phòng thành công!');
         } catch (Exception $e) {
             DB::rollBack();
-            dd($e->getMessage());
+            // dd($e->getMessage());
             return back()->with('error', 'Có lỗi xảy ra khi đặt phòng: ' . $e->getMessage());
         }
     }
