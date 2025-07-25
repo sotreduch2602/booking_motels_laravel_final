@@ -42,7 +42,8 @@ Route::get('/room', [RoomsController::class,'index'])->name('client.pages.room')
 Route::get('/room/detail/{room}', [RoomsController::class,'detail'])->name('client.pages.detail');
 Route::middleware('auth')->group(function () {
     Route::get('/room/booking/{room}', [RoomsController::class, 'booking'])->name('client.pages.booking');
-    Route::post('/room/booking/{room}', [RoomsController::class, 'storeBooking'])->name('client.pages.booking.store');
+    Route::get('/room/checkout/{room}', [RoomsController::class, 'checkoutView'])->name('client.pages.checkout');
+    Route::post('/room/checkout/{room}/store', [RoomsController::class, 'checkoutStore'])->name('client.pages.checkout.store');
 });
 
 //ServicePage

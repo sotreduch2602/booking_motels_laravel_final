@@ -20,53 +20,6 @@
 
 @section('booking')
     <!-- Booking Start -->
-    {{-- <div class="container-fluid booking pb-5 wow fadeIn" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeIn;">
-        <div class="container">
-            <div class="bg-white shadow" style="padding: 35px;">
-                <div class="row g-2">
-                    <div class="col-md-10">
-                        <form action="" method="post" class="row g-2">
-                            <div class="col-md-3">
-                                <div class="date" id="date1" data-target-input="nearest">
-                                    <input name="checkin" id="checkin" type="text" class="form-control datetimepicker-input" placeholder="Check in" data-target="#date1" data-toggle="datetimepicker">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="date" id="date2" data-target-input="nearest">
-                                    <input name="checkout" id="checkout" type="text" class="form-control datetimepicker-input" placeholder="Check out" data-target="#date2" data-toggle="datetimepicker">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <select class="form-select" name="city">
-                                    <option selected value="">-- Location --</option>
-                                    @foreach ($hotel as $h )
-                                        <option name='city' value="{{ $h->city }}">{{ $h->city }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <select class="form-select" name="room_type">
-                                    <option selected value="">-- Room Types --</option>
-                                    @foreach ($roomTypes as $types )
-                                        <option value="{{ $types->name }}" {{ request('room_type') == $types->name ? 'selected' : '' }}>
-                                            {{ $types->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-primary w-100">Submit</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-    <!-- Booking End -->
-
-
-    <!-- Booking Start -->
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
@@ -92,64 +45,60 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-                        <form method="POST" action="{{ route('client.pages.booking.store', ['room' => $room]) }}">
-                            @csrf
+                        <form method="get" action="{{ route('client.pages.checkout', ['room' => $room]) }}">
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="name" placeholder="Your Name">
+                                        <input disabled type="text" class="form-control" id="name" name="name" placeholder="Your Name" value="{{Auth::user()->full_name}}">
                                         <label for="name">Your Name</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                        <input disabled type="email" class="form-control" id="email" name="email" placeholder="Your Email" value="{{Auth::user()->email}}">
                                         <label for="email">Your Email</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating date" id="date3" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" id="checkin" placeholder="Check In" data-target="#date3" data-toggle="datetimepicker">
-                                        <label for="checkin">Check In</label>
+                                        <input type="text" class="form-control datetimepicker-input" id="check_in" name="check_in" placeholder="Check In" data-target="#date3" data-toggle="datetimepicker">
+                                        <label for="check_in">Check In</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating date" id="date4" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" id="checkout" placeholder="Check Out" data-target="#date4" data-toggle="datetimepicker">
-                                        <label for="checkout">Check Out</label>
+                                        <input type="text" class="form-control datetimepicker-input" id="check_out" name="check_out" placeholder="Check Out" data-target="#date4" data-toggle="datetimepicker">
+                                        <label for="check_out">Check Out</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input disabled class="form-select" id="select1" name="city" value="{{ $room->Hotel->city }}">
+                                        <input disabled class="form-select" id="select1" value="{{ $room->Hotel->city }}">
                                         <label for="select1">Location</label>
+                                        <input type="hidden" name="city" value="{{ $room->Hotel->city }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input disabled class="form-select" id="select2" name="room_type" value="{{ $room->RoomType->name }}">
+                                        <input disabled class="form-select" id="select2" value="{{ $room->RoomType->name }}">
                                         <label for="select2">Room Types</label>
-                                        </div>
+                                        <input type="hidden" name="room_type" value="{{ $room->RoomType->name }}">
+                                    </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <input disabled type="text" class="form-select" id="select3" name="room_number" value="{{ $room->room_number }}">
+                                        <input disabled type="text" class="form-select" id="select3" value="{{ $room->room_number }}">
                                         <label for="select3">Room Number</label>
+                                        <input type="hidden" name="room_number" value="{{ $room->room_number }}">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Special Request" id="message" style="height: 100px"></textarea>
-                                        <label for="message">Special Request</label>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-floating">
-                                        <select type="text" class="form-select" id="select3" name="payment" value="{{ $room->room_number }}">
-                                            <option value="cod">Cash on delivery</option>
-                                            <option value="vnpay">VN Pay</option>
+                                        <select class="form-select" id="select4" name="payment">
+                                            <option value="COD">Cash on delivery</option>
+                                            <option value="VNPay">VN Pay</option>
                                         </select>
-                                        <label for="select3">Payment method</label>
+                                        <label for="select4">Payment method</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
