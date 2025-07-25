@@ -83,8 +83,7 @@ class RoomsController extends Controller
             ]);
 
 
-            // dd($room->hotel_id);
-            // Lưu đánh giá
+            // Lưu Reviews
             Reviews::create([
                 'user_id' => $user->id,
                 'hotel_id' => $room->hotel_id,
@@ -163,6 +162,7 @@ class RoomsController extends Controller
             $room = Rooms::find($request->input('room_id'));
             if ($room && $room->available == 1) {
                 $room->available = 0;
+                $room->updated_at = now();
                 $room->save();
             } else {
                 DB::rollBack();

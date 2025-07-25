@@ -31,7 +31,16 @@ class BookingController extends Controller
             DB::beginTransaction();
 
             $booking->status = 'cancelled';
+            $booking->updated_at = now();
             $booking->save();
+
+            // Cập nhật lại trạng thái phòng về available = 1
+            $room = $booking->room; // Lấy phòng liên quan
+            if ($room) {
+                $room->available = 1;
+                $room->updated_at = now();
+                $room->save();
+            }
 
             DB::commit();
             return redirect()->route('admin.pages.booking')->with('msg', 'Huỷ đặt phòng thành công');

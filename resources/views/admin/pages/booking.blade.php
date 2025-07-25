@@ -78,7 +78,13 @@
                                                         View
                                                     </button>
                                                     @if ($booking->status==="pending")
-                                                        <a href="{{route('admin.pages.booking.cancel', ['booking' => $booking])}}" class="btn btn-sm btn-danger">Cancel</a>
+                                                        <button
+                                                            class="btn btn-sm btn-danger cancel-booking-btn"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#cancelBookingModal"
+                                                            data-cancel-url="{{ route('admin.pages.booking.cancel', ['booking' => $booking]) }}">
+                                                            Cancel
+                                                        </button>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -119,6 +125,25 @@
         </div>
     </div>
 
+    <!-- Cancel Booking Modal -->
+    <div class="modal fade" id="cancelBookingModal" tabindex="-1" aria-labelledby="cancelBookingModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cancelBookingModalLabel">Xác nhận hủy booking</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Bạn có chắc chắn muốn hủy booking này không?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <a href="#" id="confirmCancelBookingBtn" class="btn btn-danger">Xác nhận hủy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     var bookingModal = document.getElementById('bookingReceiptModal');
@@ -133,6 +158,17 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('modalPaymentStatus').textContent = button.getAttribute('data-payment-status');
         document.getElementById('modalCreatedAt').textContent = button.getAttribute('data-created-at');
         document.getElementById('modalUpdatedAt').textContent = button.getAttribute('data-updated-at');
+    });
+
+    // Modal xác nhận hủy booking
+    var cancelModal = document.getElementById('cancelBookingModal');
+    var confirmBtn = document.getElementById('confirmCancelBookingBtn');
+    var cancelUrl = '';
+    document.querySelectorAll('.cancel-booking-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            cancelUrl = btn.getAttribute('data-cancel-url');
+            confirmBtn.setAttribute('href', cancelUrl);
+        });
     });
 });
 </script>
