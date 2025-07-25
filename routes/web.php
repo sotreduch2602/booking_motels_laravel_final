@@ -66,6 +66,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/analytic', [DashboardController::class,'analyticView'])->name('admin.pages.analytic');
     Route::get('/dashboard/review', [ReviewsController::class, 'reviewView'])->name('admin.pages.review');
     Route::get('/dashboard/booking', [BookingController::class, 'bookingView'])->name('admin.pages.booking');
+    Route::get('/dashboard/booking/{booking}', [BookingController::class, 'bookingCancel'])->name('admin.pages.booking.cancel');
     Route::get('/dashboard/admin', [DashboardController::class, 'dashboardView'])->name('admin.pages.dashboard');
 
     Route::get('/dashboard/profile', [ProfileController::class,'profileView'])->name('admin.pages.profile');

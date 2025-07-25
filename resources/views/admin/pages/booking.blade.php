@@ -10,6 +10,19 @@
                         <div class="card">
                             <div class="card-header">
                                 {{-- <h5 class="card-title mb-0">Empty card</h5> --}}
+                                @if(session('msg'))
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        {{ session('msg') }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                @endif
+
+                                @if(session('error'))
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        {{ session('error') }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                @endif
                             </div>
                             <div class="card-body">
                                 <table class="table table-striped table-hover">
@@ -60,10 +73,13 @@
                                                         data-status="{{ ucfirst($booking->status) }}"
                                                         data-payment-status="{{ $booking->payment_status }}"
                                                         data-created-at="{{ $booking->created_at }}"
+                                                        data-updated-at="{{ $booking->updated_at }}"
                                                     >
                                                         View
                                                     </button>
-                                                    <button class="btn btn-sm btn-danger">Cancel</button>
+                                                    @if ($booking->status==="pending")
+                                                        <a href="{{route('admin.pages.booking.cancel', ['booking' => $booking])}}" class="btn btn-sm btn-danger">Cancel</a>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -94,6 +110,7 @@
                 <p><strong>Status:</strong> <span id="modalStatus"></span></p>
                 <p><strong>Payment Status:</strong> <span id="modalPaymentStatus"></span></p>
                 <p><strong>Created At:</strong> <span id="modalCreatedAt"></span></p>
+                <p><strong>Updated At:</strong> <span id="modalUpdatedAt"></span></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -115,6 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('modalStatus').textContent = button.getAttribute('data-status');
         document.getElementById('modalPaymentStatus').textContent = button.getAttribute('data-payment-status');
         document.getElementById('modalCreatedAt').textContent = button.getAttribute('data-created-at');
+        document.getElementById('modalUpdatedAt').textContent = button.getAttribute('data-updated-at');
     });
 });
 </script>
