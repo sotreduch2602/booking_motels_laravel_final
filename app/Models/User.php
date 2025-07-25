@@ -17,8 +17,13 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $guarded = [
-
+    protected $fillable = [
+        'full_name',
+        'email',
+        'password',
+        'phone',
+        'role',
+        'google_id',
     ];
 
     /**
@@ -43,12 +48,24 @@ class User extends Authenticatable
         ];
     }
 
-    public function Reviews(){
-        return $this->hasMany(User::class, 'user_id');
+    public function reviews(){
+        return $this->hasMany(Reviews::class, 'user_id');
     }
 
     public function bookings()
     {
         return $this->hasMany(Booking::class, 'user_id');
+    }
+
+    // Accessor để tương thích với Laravel
+    public function getNameAttribute()
+    {
+        return $this->full_name;
+    }
+
+    // Mutator để hash password
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
     }
 }

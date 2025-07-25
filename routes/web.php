@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Client\RoomsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\CheckIsAdmin;
 use Illuminate\Support\Facades\Route;
 require __DIR__.'/auth.php';
 
@@ -73,7 +74,7 @@ Route::middleware('auth')->group(function () {
 });
 
 //Admin routes (chỉ cho phép admin)
-Route::middleware(['auth', \App\Http\Middleware\CheckIsAdmin::class])->group(function () {
+Route::middleware(['auth', CheckIsAdmin::class])->group(function () {
     Route::get('/dashboard/admin', [DashboardController::class, 'dashboardView'])->name('admin.pages.dashboard');
     Route::get('/dashboard/analytic', [DashboardController::class,'analyticView'])->name('admin.pages.analytic');
 });

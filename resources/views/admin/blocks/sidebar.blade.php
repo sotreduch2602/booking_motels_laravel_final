@@ -47,7 +47,7 @@
 
                 <li class="sidebar-item {{ $title === 'dashboardView' ? 'active' : '' }} ">
                     <a class="sidebar-link" href="{{ route('admin.pages.dashboard') }}">
-                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Management</span>
                     </a>
                 </li>
             @endif

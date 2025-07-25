@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Booking;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,65 +15,38 @@ class DashboardController extends Controller
      */
     public function analyticView()
     {
-        return view('admin.pages.analytic', [
+        return view('admin.pages.admin.analytic', [
             'title' => 'analyticView'
         ]);
     }
 
     public function dashboardView(){
-        return view('admin.pages.dashboard', [
-            'title' => 'dashboardView'
+        // Lấy tất cả bookings với thông tin room và user
+        $bookings = Booking::with(['room.RoomType', 'user'])->latest()->get();
+
+        // Lấy tất cả users
+        $users = User::latest()->get();
+
+        // Thống kê tổng quan
+        $totalBookings = $bookings->count();
+        $totalUsers = $users->count();
+        $completedBookings = $bookings->where('status', 'completed')->count();
+        $pendingBookings = $bookings->where('status', 'pending')->count();
+        $cancelBookings = $bookings->where('status', 'cancelled')->count();
+        $paidBookings = $bookings->where('status', 'completed')->count();
+        $totalRevenue = $bookings->where('status', 'completed')->sum('total_price');
+
+        return view('admin.pages.admin.dashboard', [
+            'title' => 'dashboardView',
+            'bookings' => $bookings,
+            'users' => $users,
+            'totalBookings' => $totalBookings,
+            'totalUsers' => $totalUsers,
+            'completedBookings' => $completedBookings,
+            'pendingBookings' => $pendingBookings,
+            'cancelBookings' => $cancelBookings,
+            'paidBookings' => $paidBookings,
+            'totalRevenue' => $totalRevenue
         ]);
-    }
-
-
-
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }
