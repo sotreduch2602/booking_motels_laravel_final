@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Mail\AdminBookingNotify;
+use App\Mail\ClientBookingNotify;
 use App\Models\Hotel;
 use App\Models\Rooms;
 use App\Models\RoomTypes;
@@ -13,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 
 class RoomsController extends Controller
@@ -183,6 +186,9 @@ class RoomsController extends Controller
             }
 
             DB::commit();
+
+            Mail::to(users: Auth::user()->email)->send(new ClientBookingNotify($booking));
+            Mail::to(users: 'sotreduch26022001@gmail.com')->send(new AdminBookingNotify($booking));
 
             return redirect()->route('client.pages.room')->with('success', 'Đặt phòng thành công!');
         } catch (Exception $e) {
