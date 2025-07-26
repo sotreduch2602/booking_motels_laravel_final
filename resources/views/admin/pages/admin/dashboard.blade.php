@@ -152,8 +152,8 @@
                                                                     View
                                                                 </button>
                                                                 @if ($booking->status == 'pending')
-                                                                    <button class="btn btn-sm btn-success">Confirm</button>
-                                                                    <button class="btn btn-sm btn-danger">Cancel</button>
+                                                                    <a href="{{ route('admin.pages.booking.confirm', ['booking' => $booking]) }}" class="btn btn-sm btn-success">Confirm</a>
+                                                                    <a href="{{ route('admin.pages.booking.cancel.admin', ['booking' => $booking]) }}" class="btn btn-sm btn-danger">Cancel</a>
                                                                 @endif
                                                             </td>
                                                         </tr>
@@ -240,28 +240,53 @@
             </div>
     </main>
 
-    <div class="modal fade" id="bookingDetailModal" tabindex="-1" aria-labelledby="bookingDetailModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="bookingReceiptModalLabel">Booking Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p><strong>Room Number:</strong>{{ $booking->room->room_number}}</p>
-                <p><strong>Room Type:</strong>{{ $booking->room->RoomType->name ?? 'N/A' }} </p>
-                <p><strong>Check-in:</strong> {{ $booking->check_in }}</p>
-                <p><strong>Check-out:</strong>{{ $booking->check_out }}</p>
-                <p><strong>Total Price:</strong>{{ $booking->total_price }}</p>
-                <p><strong>Status:</strong>{{ ucfirst($booking->status) }}</p>
-                <p><strong>Payment Status:</strong>{{ $booking->payment_status }}</p>
-                <p><strong>Created At:</strong> {{ $booking->created_at }}</p>
-                <p><strong>Updated At:</strong> {{ $booking->updated_at }}</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-            </div>
-        </div>
-    </div>
+         <div class="modal fade" id="bookingDetailModal" tabindex="-1" aria-labelledby="bookingDetailModalLabel" aria-hidden="true">
+         <div class="modal-dialog">
+             <div class="modal-content">
+             <div class="modal-header">
+                 <h5 class="modal-title" id="bookingReceiptModalLabel">Booking Details</h5>
+                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+             </div>
+             <div class="modal-body" id="bookingDetailContent">
+                 <!-- Content will be loaded dynamically -->
+             </div>
+             <div class="modal-footer">
+                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+             </div>
+             </div>
+         </div>
+     </div>
+
+     <script>
+         document.addEventListener('DOMContentLoaded', function() {
+             const viewButtons = document.querySelectorAll('.view-receipt-btn');
+
+             viewButtons.forEach(button => {
+                 button.addEventListener('click', function() {
+                     const row = this.closest('tr');
+                     const roomNumber = row.cells[1].textContent;
+                     const roomType = row.cells[2].textContent;
+                     const guestName = row.cells[3].textContent;
+                     const checkIn = row.cells[4].textContent;
+                     const checkOut = row.cells[5].textContent;
+                     const totalPrice = row.cells[6].textContent;
+                     const status = row.cells[7].textContent;
+                     const paymentStatus = row.cells[8].textContent;
+
+                     const modalContent = `
+                         <p><strong>Room Number:</strong> ${roomNumber}</p>
+                         <p><strong>Room Type:</strong> ${roomType}</p>
+                         <p><strong>Guest Name:</strong> ${guestName}</p>
+                         <p><strong>Check-in:</strong> ${checkIn}</p>
+                         <p><strong>Check-out:</strong> ${checkOut}</p>
+                         <p><strong>Total Price:</strong> ${totalPrice}</p>
+                         <p><strong>Status:</strong> ${status}</p>
+                         <p><strong>Payment Status:</strong> ${paymentStatus}</p>
+                     `;
+
+                     document.getElementById('bookingDetailContent').innerHTML = modalContent;
+                 });
+             });
+         });
+     </script>
 @endsection

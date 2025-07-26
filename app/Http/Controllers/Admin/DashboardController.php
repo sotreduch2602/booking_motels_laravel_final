@@ -7,19 +7,14 @@ use App\Models\Booking;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Exception;
 
 class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function analyticView()
-    {
-        return view('admin.pages.admin.analytic', [
-            'title' => 'analyticView'
-        ]);
-    }
-
     public function dashboardView(){
         // Lấy tất cả bookings với thông tin room và user
         $bookings = Booking::with(['room.RoomType', 'user'])->latest()->get();
@@ -48,5 +43,47 @@ class DashboardController extends Controller
             'paidBookings' => $paidBookings,
             'totalRevenue' => $totalRevenue
         ]);
+    }
+
+    public function confirmBooking(Booking $booking)
+    {
+        try {
+            DB::beginTransaction();
+
+            $booking->status = 'completed';
+            $booking->updated_at = now();
+            $booking->save();
+
+            DB::commit();
+            return redirect()->route('admin.pages.dashboard')->with('success', 'Booking đã được xác nhận thành công!');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return redirect()->route('admin.pages.dashboard')->with('error', 'Có lỗi xảy ra khi xác nhận booking: ' . $e->getMessage());
+        }
+    }
+
+    public function cancelBooking(Booking $booking)
+    {
+        try {
+            DB::beginTransaction();
+
+            $booking->status = 'cancelled';
+            $booking->updated_at = now();
+            $booking->save();
+
+            // Cập nhật lại trạng thái phòng về available = 1
+            $room = $booking->room;
+            if ($room) {
+                $room->available = 1;
+                $room->updated_at = now();
+                $room->save();
+            }
+
+            DB::commit();
+            return redirect()->route('admin.pages.dashboard')->with('success', 'Booking đã được hủy thành công!');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return redirect()->route('admin.pages.dashboard')->with('error', 'Có lỗi xảy ra khi hủy booking: ' . $e->getMessage());
+        }
     }
 }

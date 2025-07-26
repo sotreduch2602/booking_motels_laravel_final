@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AnalyticController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ReviewsController;
@@ -75,6 +76,9 @@ Route::middleware('auth')->group(function () {
 
 //Admin routes (chỉ cho phép admin)
 Route::middleware(['auth', CheckIsAdmin::class])->group(function () {
-    Route::get('/dashboard/admin', [DashboardController::class, 'dashboardView'])->name('admin.pages.dashboard');
-    Route::get('/dashboard/analytic', [DashboardController::class,'analyticView'])->name('admin.pages.analytic');
+    Route::get('/dashboard/analytic', [AnalyticController::class,'analyticView'])->name('admin.pages.analytic');
+
+    Route::get('/dashboard/adminbooking', [DashboardController::class, 'dashboardView'])->name('admin.pages.dashboard');
+    Route::get('/dashboard/adminbooking/{booking}/confirm', [DashboardController::class, 'confirmBooking'])->name('admin.pages.booking.confirm');
+    Route::get('/dashboard/adminbooking/{booking}/cancel', [DashboardController::class, 'cancelBooking'])->name('admin.pages.booking.cancel.admin');
 });
