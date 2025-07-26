@@ -86,4 +86,26 @@ class DashboardController extends Controller
             return redirect()->route('admin.pages.dashboard')->with('error', 'Có lỗi xảy ra khi hủy booking: ' . $e->getMessage());
         }
     }
+
+    public function changeAvailableBooking(Booking $booking)
+    {
+        try {
+            DB::beginTransaction();
+
+            $room = $booking->room;
+            if ($room && $room->available == 0) {
+                $room->available = 1;
+                $room->updated_at = now();
+                $room->save();
+                DB::commit();
+                return redirect()->route('admin.pages.dashboard')->with('success', 'Trạng thái phòng đã được chuyển sang available!');
+            } else {
+                DB::rollBack();
+                return redirect()->route('admin.pages.dashboard')->with('error', 'Phòng không tồn tại hoặc đã ở trạng thái available!');
+            }
+        } catch (Exception $e) {
+            DB::rollBack();
+            return redirect()->route('admin.pages.dashboard')->with('error', 'Có lỗi xảy ra: ' . $e->getMessage());
+        }
+    }
 }

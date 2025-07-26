@@ -155,6 +155,12 @@
                                                                     <a href="{{ route('admin.pages.booking.confirm', ['booking' => $booking]) }}" class="btn btn-sm btn-success">Confirm</a>
                                                                     <a href="{{ route('admin.pages.booking.cancel.admin', ['booking' => $booking]) }}" class="btn btn-sm btn-danger">Cancel</a>
                                                                 @endif
+
+                                                                @if ($booking->status == 'completed')
+                                                                    @if ($booking->room->available == 0)
+                                                                        <a class="btn btn-sm btn-info" href="{{route('admin.pages.booking.changeAvailable', ['booking' => $booking])}}">Đã Trả Phòng</a>
+                                                                    @endif
+                                                                @endif
                                                             </td>
                                                         </tr>
                                                     @endforeach
