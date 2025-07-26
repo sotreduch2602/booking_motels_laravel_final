@@ -39,12 +39,12 @@
                         <a href="{{route('client.pages.home')}}" class="nav-item nav-link active">Home</a>
                         <a href="{{route('client.pages.room')}}" class="nav-item nav-link">Rooms</a>
                         <a href="{{route('client.pages.service')}}" class="nav-item nav-link">Services</a>
-                        <a href="contact" class="nav-item nav-link">Contact</a>
+                        <a href="{{route('client.pages.contact')}}" class="nav-item nav-link">Contact</a>
                     </div>
 
                     <div class="nav-item dropdown">
                         @if (Auth::user())
-                            <a href="https://demo.htmlcodex.com/pro/hotelier/booking-1.html#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Welcome, {{ Auth::user()->full_name }}</a>
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Welcome, {{ Auth::user()->full_name }}</a>
                             <div class="dropdown-menu fade-down rounded-0 m-0" style="">
                                 <a href="{{route('admin.pages.profile')}}" class="dropdown-item">Dashboard</a>
                                 <form action="{{ route('logout') }}" method="post">
