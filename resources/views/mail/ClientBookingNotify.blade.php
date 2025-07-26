@@ -1,8 +1,8 @@
 <div style="font-family: Arial, sans-serif; color: #333;">
     <h2>Thông báo đặt phòng thành công!</h2>
-    <p>Xin chào {{ $booking->user->name ?? 'Quý khách' }},</p>
+    <p>Xin chào {{ $booking->user->full_name ?? 'Quý khách' }},</p>
     <p>
-        Cảm ơn bạn đã đặt phòng tại <strong>{{ $booking->hotel->name ?? 'Khách sạn của chúng tôi' }}</strong>.<br>
+        Cảm ơn bạn đã đặt phòng tại <strong>{{ $booking->room->Hotel->name ?? 'Khách sạn của chúng tôi' }}</strong>.<br>
         Thông tin đặt phòng của bạn như sau:
     </p>
     <ul>
@@ -12,7 +12,6 @@
         <li><strong>Loại phòng:</strong> {{ $booking->room->roomType->name ?? '' }}</li>
         <li><strong>Ngày nhận phòng:</strong> {{ $booking->check_in }}</li>
         <li><strong>Ngày trả phòng:</strong> {{ $booking->check_out }}</li>
-        <li><strong>Số lượng khách:</strong> {{ $booking->guests }}</li>
         <li><strong>Tổng tiền:$</strong> {{ number_format($booking->total_price, 0, ',', '.') }}</li>
     </ul>
     <p>Nếu bạn có bất kỳ thắc mắc nào, vui lòng liên hệ với chúng tôi qua email hoặc số điện thoại hỗ trợ.</p>
