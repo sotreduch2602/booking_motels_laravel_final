@@ -62,10 +62,4 @@ class User extends Authenticatable
     {
         return $this->full_name;
     }
-
-    // Mutator để hash password
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
-    }
 }
