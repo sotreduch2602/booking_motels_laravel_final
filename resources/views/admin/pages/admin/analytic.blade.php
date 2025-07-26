@@ -213,20 +213,40 @@
 	</script>
 	<script>
 		document.addEventListener("DOMContentLoaded", function() {
-			// Pie chart for Location Booking Distribution
+        
+			var colors = [
+				window.theme.primary,
+				window.theme.warning,
+				window.theme.danger,
+				window.theme.success,
+				window.theme.info,
+				'#FF6B6B',
+				'#4ECDC4',
+				'#45B7D1',
+				'#96CEB4',
+				'#FFEAA7',
+				'#DDA0DD',
+				'#98D8C8',
+				'#F7DC6F',
+				'#BB8FCE',
+				'#85C1E9'
+			];
+
+			var locationData = {!! json_encode($topLocations) !!};
+			var locationLabels = Object.keys(locationData);
+			var locationValues = Object.values(locationData);
+
+			var backgroundColor = locationLabels.map(function(item, index) {
+				return colors[index % colors.length];
+			});
+
 			new Chart(document.getElementById("chartjs-dashboard-pie"), {
 				type: "pie",
 				data: {
-					labels: {!! json_encode(array_keys($topLocations)) !!},
+					labels: locationLabels,
 					datasets: [{
-						data: {!! json_encode(array_values($topLocations)) !!},
-						backgroundColor: [
-							window.theme.primary,
-							window.theme.warning,
-							window.theme.danger,
-							window.theme.success,
-							window.theme.info
-						],
+						data: locationValues,
+						backgroundColor: backgroundColor,
 						borderWidth: 5
 					}]
 				},

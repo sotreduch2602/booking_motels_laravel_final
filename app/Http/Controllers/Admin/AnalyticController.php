@@ -53,7 +53,7 @@ class AnalyticController extends Controller
             $monthlyRevenue[$monthName] = $monthRevenue;
         }
 
-        // Dữ liệu cho Browser Usage (Location Booking - theo thành phố)
+                // Dữ liệu cho Browser Usage (Location Booking - theo thành phố)
         $locationBookings = [];
         foreach ($hotels as $hotel) {
             $bookingCount = $bookings->where('room.hotel_id', $hotel->id)->count();
@@ -62,9 +62,8 @@ class AnalyticController extends Controller
             }
         }
 
-        // Sắp xếp theo số lượng booking giảm dần và lấy top 5
+        // Sắp xếp theo số lượng booking giảm dần
         arsort($locationBookings);
-        $topLocations = array_slice($locationBookings, 0, 5, true);
 
         return view('admin.pages.admin.analytic', [
             'title' => 'analyticView',
@@ -77,7 +76,7 @@ class AnalyticController extends Controller
             'cancelledBookings' => $cancelledBookings,
             'totalRevenue' => $totalRevenue,
             'monthlyRevenue' => $monthlyRevenue,
-            'topLocations' => $topLocations,
+            'topLocations' => $locationBookings,
             'bookings' => $bookings,
             'users' => $users,
             'reviews' => $reviews,
