@@ -195,7 +195,7 @@
                                                         <th>Role</th>
                                                         <th>Status</th>
                                                         <th>Created Date</th>
-                                                        <th>Actions</th>
+                                                        <th>Deleted Date</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -212,21 +212,15 @@
                                                                 @endif
                                                             </td>
                                                             <td>
-                                                                @if($user->email_verified_at)
-                                                                    <span class="badge bg-success">Active</span>
+                                                                @if($user->deleted_at)
+                                                                    <span class="badge bg-success">Delete</span>
                                                                 @else
-                                                                    <span class="badge bg-warning">Pending</span>
+                                                                    <span class="badge bg-warning">Active</span>
                                                                 @endif
                                                             </td>
-                                                            <td>{{ $user->created_at ? $user->created_at->format('Y-m-d') : 'N/A' }}</td>
+                                                            <td>{{ $user->created_at ? $user->created_at->format('Y-m-d H:i:s') : 'N/A' }}</td>
                                                             <td>
-                                                                <button class="btn btn-sm btn-info">Edit</button>
-                                                                @if($user->email_verified_at)
-                                                                    <button class="btn btn-sm btn-warning">Suspend</button>
-                                                                @else
-                                                                    <button class="btn btn-sm btn-success">Activate</button>
-                                                                @endif
-                                                                <button class="btn btn-sm btn-danger">Delete</button>
+                                                                {{ $user->deleted_at ? $user->deleted_at->format('Y-m-d H:i:s') : 'N/A' }}
                                                             </td>
                                                         </tr>
                                                     @endforeach

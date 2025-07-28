@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Booking;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -65,19 +68,52 @@ class ProfileController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
+        // dd(Booking::where('user_id', '=', $request->user()->id)
+        //                 ->where('status', '=', 'pending')
+        //                 ->get());
+        
+        //Booking Cancel
+        try{
+            DB::beginTransaction();
+            //Booking Cancelled
+            $bookings = Booking::where('user_id', '=', $request->user()->id)
+                        ->where('status', '=', 'pending')
+                        ->get();
 
-        $user = $request->user();
+            foreach ($bookings as $booking) {
+                $booking->status = 'cancelled';
+                $booking->updated_at = now();
+                $booking->save();
 
-        Auth::logout();
+                //Room change to Available
+                $room = $booking->room;
+                if ($room) {
+                    $room->available = 1;
+                    $room->updated_at = now();
+                    $room->save();
+                }
+            }
 
-        $user->delete();
+            //User Deleteion
+            $request->validateWithBag('userDeletion', [
+                'password' => ['required', 'current_password'],
+            ]);
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+            $user = $request->user();
 
-        return Redirect::to('/')->with('msg','Delete Account Successfully');
+            Auth::logout();
+
+            $user->delete();
+
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            DB::commit();
+            return Redirect::to('/')->with('success','Delete Account Successfully');
+        }catch(Exception $e){
+            DB::rollBack();
+            dd($e->getMessage());
+            return redirect()->route('admin.pages.profile')->with('error', 'Có lỗi xảy ra khi xóa tài khoản');
+        }
     }
 }

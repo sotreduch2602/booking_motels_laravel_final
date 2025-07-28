@@ -19,12 +19,12 @@ class DashboardController extends Controller
         // Lấy tất cả bookings với thông tin room và user
         $bookings = Booking::with(['room.RoomType', 'user'])->latest()->get();
 
-        // Lấy tất cả users
-        $users = User::latest()->get();
+        // Lấy tất cả users bao gồm SoftDelete User
+        $users = User::withTrashed()->latest()->get();
 
         // Thống kê tổng quan
         $totalBookings = $bookings->count();
-        $totalUsers = $users->count();
+        $totalUsers = User::latest()->get()->count();
         $completedBookings = $bookings->where('status', 'completed')->count();
         $pendingBookings = $bookings->where('status', 'pending')->count();
         $cancelBookings = $bookings->where('status', 'cancelled')->count();
