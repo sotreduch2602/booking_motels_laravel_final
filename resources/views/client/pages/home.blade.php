@@ -54,8 +54,8 @@
                         <div class="border rounded p-1">
                             <div class="border rounded text-center p-4">
                                 <i class="fa fa-hotel fa-2x text-primary mb-2"></i>
-                                <h2 class="mb-1" data-toggle="counter-up">1234</h2>
-                                <p class="mb-0">Rooms</p>
+                                <h2 class="mb-1" data-toggle="counter-up">{{$hotelsCount}}</h2>
+                                <p class="mb-0">Hotels</p>
                             </div>
                         </div>
                     </div>
@@ -63,8 +63,8 @@
                         <div class="border rounded p-1">
                             <div class="border rounded text-center p-4">
                                 <i class="fa fa-users-cog fa-2x text-primary mb-2"></i>
-                                <h2 class="mb-1" data-toggle="counter-up">1234</h2>
-                                <p class="mb-0">Staffs</p>
+                                <h2 class="mb-1" data-toggle="counter-up">{{$roomTypesCount}}</h2>
+                                <p class="mb-0">Room Types</p>
                             </div>
                         </div>
                     </div>
@@ -72,8 +72,8 @@
                         <div class="border rounded p-1">
                             <div class="border rounded text-center p-4">
                                 <i class="fa fa-users fa-2x text-primary mb-2"></i>
-                                <h2 class="mb-1" data-toggle="counter-up">1234</h2>
-                                <p class="mb-0">Clients</p>
+                                <h2 class="mb-1" data-toggle="counter-up">{{$usersCount}}</h2>
+                                <p class="mb-0">Users</p>
                             </div>
                         </div>
                     </div>

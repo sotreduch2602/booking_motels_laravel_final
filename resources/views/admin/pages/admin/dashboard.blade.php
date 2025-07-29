@@ -156,7 +156,7 @@
                                                                     <a href="{{ route('admin.pages.booking.cancel.admin', ['booking' => $booking]) }}" class="btn btn-sm btn-danger">Cancel</a>
                                                                 @endif
 
-                                                                @if ($booking->status == 'completed')
+                                                                @if ($booking->status == 'completed' && $booking->checked_out == 0)
                                                                     @if ($booking->room->available == 0)
                                                                         <a class="btn btn-sm btn-info" href="{{route('admin.pages.booking.changeAvailable', ['booking' => $booking])}}">Đã Trả Phòng</a>
                                                                     @endif
@@ -195,6 +195,7 @@
                                                         <th>Role</th>
                                                         <th>Status</th>
                                                         <th>Created Date</th>
+                                                        <th>Deleted Date</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -212,21 +213,24 @@
                                                                 @endif
                                                             </td>
                                                             <td>
-                                                                @if($user->email_verified_at)
-                                                                    <span class="badge bg-success">Active</span>
+                                                                @if($user->deleted_at)
+                                                                    <span class="badge bg-success">Delete</span>
                                                                 @else
-                                                                    <span class="badge bg-warning">Pending</span>
+                                                                    <span class="badge bg-warning">Active</span>
                                                                 @endif
                                                             </td>
-                                                            <td>{{ $user->created_at ? $user->created_at->format('Y-m-d') : 'N/A' }}</td>
+                                                            <td>{{ $user->created_at ? $user->created_at->format('Y-m-d H:i:s') : 'N/A' }}</td>
                                                             <td>
-                                                                <button class="btn btn-sm btn-info">Edit</button>
-                                                                @if($user->email_verified_at)
-                                                                    <button class="btn btn-sm btn-warning">Suspend</button>
-                                                                @else
-                                                                    <button class="btn btn-sm btn-success">Activate</button>
+                                                                {{ $user->deleted_at ? $user->deleted_at->format('Y-m-d H:i:s') : 'N/A' }}
+                                                            </td>
+                                                            <td>
+                                                                @if($user->deleted_at)
+                                                                    <form action="{{ route('admin.users.restore', $user->id) }}" method="POST" style="display:inline;">
+                                                                        @csrf
+                                                                        @method('PATCH')
+                                                                        <button type="submit" class="btn btn-sm btn-success">Restore</button>
+                                                                    </form>
                                                                 @endif
-                                                                <button class="btn btn-sm btn-danger">Delete</button>
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -246,7 +250,7 @@
             </div>
     </main>
 
-         <div class="modal fade" id="bookingDetailModal" tabindex="-1" aria-labelledby="bookingDetailModalLabel" aria-hidden="true">
+    <div class="modal fade" id="bookingDetailModal" tabindex="-1" aria-labelledby="bookingDetailModalLabel" aria-hidden="true">
          <div class="modal-dialog">
              <div class="modal-content">
              <div class="modal-header">

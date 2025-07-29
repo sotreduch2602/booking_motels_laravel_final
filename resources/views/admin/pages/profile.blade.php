@@ -135,7 +135,7 @@
 
         <form method="post" action="{{ route('profile.destroy') }}">
             @csrf
-            @method('delete')
+            @method('DELETE')
             <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                 <div class="modal-dialog ">
                     <div class="modal-content">

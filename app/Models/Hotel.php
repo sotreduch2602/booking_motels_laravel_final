@@ -3,10 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Hotel extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'hotels';
+
+    protected $guarded = [];
 
     public function Rooms()
     {

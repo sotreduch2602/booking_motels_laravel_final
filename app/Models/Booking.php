@@ -20,6 +20,7 @@ class Booking extends Model
         'total_price',
         'status',
         'payment_status',
+        'checked_out',
         // add other fields as needed
     ];
 
