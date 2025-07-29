@@ -47,6 +47,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('client.pages.home', absolute: false))->with('success', 'Đăng ký Tài Khoản Thành Công');
     }
 }
