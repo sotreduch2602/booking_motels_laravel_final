@@ -41,24 +41,32 @@
                                     <td>{{ $roomType->created_at }}</td>
                                     <td>{{ $roomType->updated_at }}</td>
                                     <td>
-                                        <a href="#"
-                                           class="btn btn-sm btn-warning edit-roomtype-btn"
-                                           data-id="{{ $roomType->id }}"
-                                           data-name="{{ $roomType->name }}"
-                                           data-description="{{ $roomType->description }}"
-                                           data-amenities="{{ $roomType->amenities }}"
-                                           data-base_price="{{ $roomType->base_price }}"
-                                           data-image_preview="{{ $roomType->image_preview }}"
-                                           data-bs-toggle="modal"
-                                           data-bs-target="#editRoomTypeModal"
-                                        >
-                                            Edit
-                                        </a>
-                                        <form action="{{ route('admin.pages.roomTypes.destroy', $roomType->id) }}" method="POST" style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
-                                        </form>
+                                        @if($roomType->trashed())
+                                            <span class="badge bg-secondary">Deleted</span>
+                                            <form action="{{ route('admin.pages.roomTypes.restore', $roomType->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-success">Restore</button>
+                                            </form>
+                                        @else
+                                            <a href="#"
+                                               class="btn btn-sm btn-warning edit-roomtype-btn"
+                                               data-id="{{ $roomType->id }}"
+                                               data-name="{{ $roomType->name }}"
+                                               data-description="{{ $roomType->description }}"
+                                               data-amenities="{{ $roomType->amenities }}"
+                                               data-base_price="{{ $roomType->base_price }}"
+                                               data-image_preview="{{ $roomType->image_preview }}"
+                                               data-bs-toggle="modal"
+                                               data-bs-target="#editRoomTypeModal"
+                                            >
+                                                Edit
+                                            </a>
+                                            <form action="{{ route('admin.pages.roomTypes.destroy', $roomType->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                            </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

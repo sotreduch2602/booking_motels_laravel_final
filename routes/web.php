@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HotelController;
 use App\Http\Controllers\Admin\ReviewsController;
+use App\Http\Controllers\Admin\RoomController;
+use App\Http\Controllers\Admin\RoomTypeController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Client\RoomsController;
@@ -90,12 +92,22 @@ Route::middleware(['auth', CheckIsAdmin::class])->group(function () {
     Route::post('/dashboard/hotels', [HotelController::class, 'store'])->name('admin.pages.hotels.store');
     Route::put('/dashboard/hotels/{hotel}', [HotelController::class, 'update'])->name('admin.pages.hotels.update');
     Route::delete('/dashboard/hotels/{hotel}', [HotelController::class, 'destroy'])->name('admin.pages.hotels.destroy');
+    Route::post('/dashboard/hotels/{hotel}/restore', [HotelController::class, 'restore'])->name('admin.pages.hotels.restore');
 
     Route::prefix('dashboard/roomTypes')->name('admin.pages.roomTypes.')->group(function () {
-        Route::get('/', [\App\Http\Controllers\Admin\RoomTypeController::class, 'index'])->name('index');
-        Route::post('/', [\App\Http\Controllers\Admin\RoomTypeController::class, 'store'])->name('store');
-        Route::put('/{roomType}', [\App\Http\Controllers\Admin\RoomTypeController::class, 'update'])->name('update');
-        Route::delete('/{roomType}', [\App\Http\Controllers\Admin\RoomTypeController::class, 'destroy'])->name('destroy');
+        Route::get('/', [RoomTypeController::class, 'index'])->name('index');
+        Route::post('/', [RoomTypeController::class, 'store'])->name('store');
+        Route::put('/{roomType}', [RoomTypeController::class, 'update'])->name('update');
+        Route::delete('/{roomType}', [RoomTypeController::class, 'destroy'])->name('destroy');
+        Route::post('/{roomType}/restore', [RoomTypeController::class, 'restore'])->name('restore');
+    });
+
+    Route::prefix('dashboard/rooms')->name('admin.pages.rooms.')->group(function () {
+        Route::get('/', [RoomController::class, 'index'])->name('index');
+        Route::post('/', [RoomController::class, 'store'])->name('store');
+        Route::put('/{room}', [RoomController::class, 'update'])->name('update');
+        Route::delete('/{room}', [RoomController::class, 'destroy'])->name('destroy');
+        Route::post('/{room}/restore', [RoomController::class, 'restore'])->name('restore'); // Add this line
     });
 
 });

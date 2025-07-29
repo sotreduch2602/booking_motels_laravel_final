@@ -39,29 +39,37 @@
                                     <td>{{ $hotel->description }}</td>
                                     <td>{{ $hotel->amenities }}</td>
                                     <td>
-                                        <a href="#"
-                                           class="btn btn-sm btn-warning edit-hotel-btn"
-                                           data-id="{{ $hotel->id }}"
-                                           data-name="{{ $hotel->name }}"
-                                           data-stars="{{ $hotel->stars }}"
-                                           data-street_address="{{ $hotel->street_address }}"
-                                           data-city="{{ $hotel->city }}"
-                                           data-state="{{ $hotel->state }}"
-                                           data-postal_code="{{ $hotel->postal_code }}"
-                                           data-country="{{ $hotel->country }}"
-                                           data-description="{{ $hotel->description }}"
-                                           data-amenities="{{ $hotel->amenities }}"
-                                           data-owner_id="{{ $hotel->owner_id }}"
-                                           data-bs-toggle="modal"
-                                           data-bs-target="#editHotelModal"
-                                        >
-                                            Edit
-                                        </a>
-                                        <form action="{{ route('admin.pages.hotels.destroy', $hotel->id) }}" method="POST" style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
-                                        </form>
+                                        @if($hotel->trashed())
+                                            <span class="badge bg-secondary">Deleted</span>
+                                            <form action="{{ route('admin.pages.hotels.restore', $hotel->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-success">Restore</button>
+                                            </form>
+                                        @else
+                                            <a href="#"
+                                               class="btn btn-sm btn-warning edit-hotel-btn"
+                                               data-id="{{ $hotel->id }}"
+                                               data-name="{{ $hotel->name }}"
+                                               data-stars="{{ $hotel->stars }}"
+                                               data-street_address="{{ $hotel->street_address }}"
+                                               data-city="{{ $hotel->city }}"
+                                               data-state="{{ $hotel->state }}"
+                                               data-postal_code="{{ $hotel->postal_code }}"
+                                               data-country="{{ $hotel->country }}"
+                                               data-description="{{ $hotel->description }}"
+                                               data-amenities="{{ $hotel->amenities }}"
+                                               data-owner_id="{{ $hotel->owner_id }}"
+                                               data-bs-toggle="modal"
+                                               data-bs-target="#editHotelModal"
+                                            >
+                                                Edit
+                                            </a>
+                                            <form action="{{ route('admin.pages.hotels.destroy', $hotel->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                            </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

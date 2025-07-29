@@ -62,6 +62,12 @@
                         <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Room Types</span>
                     </a>
                 </li>
+
+                <li class="sidebar-item {{ $title === 'RoomView' ? 'active' : '' }} ">
+                    <a class="sidebar-link" href="{{ route('admin.pages.rooms.index') }}">
+                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Room</span>
+                    </a>
+                </li>
             @endif
         </ul>
     </div>

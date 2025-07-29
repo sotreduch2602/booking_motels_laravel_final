@@ -11,7 +11,7 @@ class HotelController extends Controller
     //
     public function HotelView()
     {
-        $hotels = Hotel::all();
+        $hotels = Hotel::withTrashed()->orderBy('id', 'desc')->get();
         return view('admin.pages.admin.hotels', ['hotels' => $hotels ,'title' => 'HotelView']);
     }
 
@@ -34,8 +34,10 @@ class HotelController extends Controller
         return redirect()->route('admin.pages.hotels')->with('success', 'Hotel created successfully!');
     }
 
-    public function update(Request $request, Hotel $hotel)
+    public function update(Request $request, $id)
     {
+        $hotel = Hotel::withTrashed()->findOrFail($id);
+
         $validated = $request->validate([
             'name'           => 'required|string|max:255',
             'stars'          => 'required|integer|min:1|max:5',
@@ -57,5 +59,13 @@ class HotelController extends Controller
     {
         $hotel->delete();
         return redirect()->route('admin.pages.hotels')->with('success', 'Hotel deleted successfully!');
+    }
+
+    public function restore($id)
+    {
+        $hotel = Hotel::withTrashed()->findOrFail($id);
+        $hotel->restore();
+
+        return redirect()->route('admin.pages.hotels')->with('success', 'Hotel restored successfully!');
     }
 }

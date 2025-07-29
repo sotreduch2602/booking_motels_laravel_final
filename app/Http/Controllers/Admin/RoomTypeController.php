@@ -12,7 +12,7 @@ class RoomTypeController extends Controller
     // Display a listing of the resource.
     public function index()
     {
-        $roomTypes = RoomTypes::all();
+        $roomTypes = RoomTypes::withTrashed()->orderBy('id', 'desc')->get();
         return view('admin.pages.admin.roomTypes', ['roomTypes' => $roomTypes,'title' => 'RoomTypesView']);
     }
 
@@ -40,8 +40,10 @@ class RoomTypeController extends Controller
     }
 
     // Update the specified resource in storage.
-    public function update(Request $request, RoomTypes $roomType)
+    public function update(Request $request, $id)
     {
+        $roomType = RoomTypes::withTrashed()->findOrFail($id);
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -76,5 +78,14 @@ class RoomTypeController extends Controller
         $roomType->delete();
 
         return redirect()->route('admin.pages.roomTypes.index')->with('success', 'Room type deleted successfully.');
+    }
+
+    // Restore the specified resource from storage.
+    public function restore($id)
+    {
+        $roomType = RoomTypes::withTrashed()->findOrFail($id);
+        $roomType->restore();
+
+        return redirect()->route('admin.pages.roomTypes.index')->with('success', 'Room type restored successfully.');
     }
 }
