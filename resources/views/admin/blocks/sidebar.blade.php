@@ -56,6 +56,12 @@
                         <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Hotel Managements</span>
                     </a>
                 </li>
+
+                <li class="sidebar-item {{ $title === 'RoomTypesView' ? 'active' : '' }} ">
+                    <a class="sidebar-link" href="{{ route('admin.pages.roomTypes.index') }}">
+                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Room Types Managements</span>
+                    </a>
+                </li>
             @endif
         </ul>
     </div>

@@ -52,4 +52,10 @@ class HotelController extends Controller
 
         return redirect()->route('admin.pages.hotels')->with('success', 'Hotel updated successfully!');
     }
+
+    public function destroy(Hotel $hotel)
+    {
+        $hotel->delete();
+        return redirect()->route('admin.pages.hotels')->with('success', 'Hotel deleted successfully!');
+    }
 }

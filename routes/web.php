@@ -90,6 +90,14 @@ Route::middleware(['auth', CheckIsAdmin::class])->group(function () {
     Route::post('/dashboard/hotels', [HotelController::class, 'store'])->name('admin.pages.hotels.store');
     Route::put('/dashboard/hotels/{hotel}', [HotelController::class, 'update'])->name('admin.pages.hotels.update');
     Route::delete('/dashboard/hotels/{hotel}', [HotelController::class, 'destroy'])->name('admin.pages.hotels.destroy');
+
+    Route::prefix('dashboard/roomTypes')->name('admin.pages.roomTypes.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Admin\RoomTypeController::class, 'index'])->name('index');
+        Route::post('/', [\App\Http\Controllers\Admin\RoomTypeController::class, 'store'])->name('store');
+        Route::put('/{roomType}', [\App\Http\Controllers\Admin\RoomTypeController::class, 'update'])->name('update');
+        Route::delete('/{roomType}', [\App\Http\Controllers\Admin\RoomTypeController::class, 'destroy'])->name('destroy');
+    });
+
 });
 
 

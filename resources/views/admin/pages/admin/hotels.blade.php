@@ -206,30 +206,30 @@
       </div>
     </div>
 
-    <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const editButtons = document.querySelectorAll('.edit-hotel-btn');
-    const editForm = document.getElementById('editHotelForm');
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const editButtons = document.querySelectorAll('.edit-hotel-btn');
+        const editForm = document.getElementById('editHotelForm');
 
-    editButtons.forEach(function (btn) {
-        btn.addEventListener('click', function () {
-            // Set form action
-            const id = this.getAttribute('data-id');
-            editForm.action = '/dashboard/hotels/' + id;
+        editButtons.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                // Set form action
+                const id = this.getAttribute('data-id');
+                editForm.action = '/dashboard/hotels/' + id;
 
-            // Fill fields
-            document.getElementById('edit_name').value = this.getAttribute('data-name') || '';
-            document.getElementById('edit_stars').value = this.getAttribute('data-stars') || '';
-            document.getElementById('edit_street_address').value = this.getAttribute('data-street_address') || '';
-            document.getElementById('edit_city').value = this.getAttribute('data-city') || '';
-            document.getElementById('edit_state').value = this.getAttribute('data-state') || '';
-            document.getElementById('edit_postal_code').value = this.getAttribute('data-postal_code') || '';
-            document.getElementById('edit_country').value = this.getAttribute('data-country') || '';
-            document.getElementById('edit_description').value = this.getAttribute('data-description') || '';
-            document.getElementById('edit_amenities').value = this.getAttribute('data-amenities') || '';
-            document.getElementById('edit_owner_id').value = this.getAttribute('data-owner_id') || '';
+                // Fill fields
+                document.getElementById('edit_name').value = this.getAttribute('data-name') || '';
+                document.getElementById('edit_stars').value = this.getAttribute('data-stars') || '';
+                document.getElementById('edit_street_address').value = this.getAttribute('data-street_address') || '';
+                document.getElementById('edit_city').value = this.getAttribute('data-city') || '';
+                document.getElementById('edit_state').value = this.getAttribute('data-state') || '';
+                document.getElementById('edit_postal_code').value = this.getAttribute('data-postal_code') || '';
+                document.getElementById('edit_country').value = this.getAttribute('data-country') || '';
+                document.getElementById('edit_description').value = this.getAttribute('data-description') || '';
+                document.getElementById('edit_amenities').value = this.getAttribute('data-amenities') || '';
+                document.getElementById('edit_owner_id').value = this.getAttribute('data-owner_id') || '';
+            });
         });
     });
-});
 </script>
 @endsection
