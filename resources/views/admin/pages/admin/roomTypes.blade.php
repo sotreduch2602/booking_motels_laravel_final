@@ -153,7 +153,6 @@
                   <div class="mb-3">
                     <label for="edit_image_preview" class="form-label">Image Preview</label>
                     <input type="file" class="form-control" id="edit_image_preview" name="image_preview" accept="image/*">
-                    <div id="current_image_preview" class="mt-2"></div>
                   </div>
                 </div>
               </div>
@@ -183,15 +182,6 @@
                 document.getElementById('edit_description').value = this.getAttribute('data-description') || '';
                 document.getElementById('edit_amenities').value = this.getAttribute('data-amenities') || '';
                 document.getElementById('edit_base_price').value = this.getAttribute('data-base_price') || '';
-
-                // Show current image preview
-                const imagePreview = this.getAttribute('data-image_preview');
-                const previewDiv = document.getElementById('current_image_preview');
-                if (imagePreview) {
-                    previewDiv.innerHTML = `<img src="/storage/${imagePreview}" alt="Preview" style="width: 60px; height: 40px; object-fit: cover;">`;
-                } else {
-                    previewDiv.innerHTML = 'N/A';
-                }
             });
         });
     });

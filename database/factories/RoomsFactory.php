@@ -25,7 +25,7 @@ class RoomsFactory extends Factory
             'price_per_night' => $this->faker->numberBetween(50, 500),
             'max_people' => $this->faker->numberBetween(1, 6),
             'description' => $this->faker->sentence(),
-            'available' => $this->faker->boolean(),
+            'available' => $this->faker->boolean(0),
             'created_at' => now(),
             'updated_at' => now(),
         ];

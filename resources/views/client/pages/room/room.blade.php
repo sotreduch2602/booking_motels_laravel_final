@@ -70,7 +70,7 @@
             <div class="border-bottom text-center text-dark p-3 pt-4 mb-3">
                 <span class="align-middle fs-1 lh-sm fw-bold">Filter</span>
             </div>
-            <form action="" method="get">
+            <form action="{{route('client.pages.room')}}" method="get">
                 <div class="row g-3 p-4 pt-2">
                     <div class="col-12">
                         <input type="range" class="form-range" id="budget" name="budget" min="0" max="1000" value="1000"

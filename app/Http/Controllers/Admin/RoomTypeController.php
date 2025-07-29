@@ -28,7 +28,10 @@ class RoomTypeController extends Controller
         ]);
 
         if ($request->hasFile('image_preview')) {
-            $validated['image_preview'] = $request->file('image_preview')->store('client_assets/img', 'public');
+            $file = $request->file('image_preview');
+            $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . '_' . date('Ymd_His'). '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('client_assets/img'), $filename);
+            $validated['image_preview'] = $filename;
         }
 
         RoomTypes::create($validated);
@@ -49,10 +52,13 @@ class RoomTypeController extends Controller
 
         if ($request->hasFile('image_preview')) {
             // Delete old image if exists
-            if ($roomType->image_preview) {
-                Storage::disk('public')->delete($roomType->image_preview);
+            if ($roomType->image_preview && file_exists(public_path('client_assets/img/' . $roomType->image_preview))) {
+                unlink(public_path('client_assets/img/' . $roomType->image_preview));
             }
-            $validated['image_preview'] = $request->file('image_preview')->store('client_assets/img', 'public');
+            $file = $request->file('image_preview');
+            $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . '_' . date('Ymd_His') .'.'. $file->getClientOriginalExtension();
+            $file->move(public_path('client_assets/img'), $filename);
+            $validated['image_preview'] = $filename;
         }
 
         $roomType->update($validated);
@@ -64,8 +70,8 @@ class RoomTypeController extends Controller
     public function destroy(RoomTypes $roomType)
     {
         // Delete image if exists
-        if ($roomType->image_preview) {
-            Storage::disk('client_assets/img')->delete($roomType->image_preview);
+        if ($roomType->image_preview && file_exists(public_path('client_assets/img/' . $roomType->image_preview))) {
+            unlink(public_path('client_assets/img/' . $roomType->image_preview));
         }
         $roomType->delete();
 
