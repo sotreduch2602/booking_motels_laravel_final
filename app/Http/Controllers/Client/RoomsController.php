@@ -185,7 +185,62 @@ class RoomsController extends Controller
                 return back()->with('error', 'Phòng không còn khả dụng!');
             }
 
+            if ($request->input('payment') == 'VNPay') {
+                date_default_timezone_set('Asia/Ho_Chi_Minh');
+                $startTime = date("YmdHis");
+                $expire = date('YmdHis', strtotime('+15 minutes', strtotime($startTime)));
+
+                $vnp_TxnRef = $booking->id;
+                $vnp_Amount = $booking->total_price * 100; // VNPay expects amount in VND * 100
+                $vnp_Locale = 'vn';
+                $vnp_BankCode = 'VNBANK';
+                $vnp_IpAddr = $request->ip();
+                $vnp_HashSecret = env('VNPAY_HASHSECRET');
+
+                $inputData = [
+                    "vnp_Version" => "2.1.0",
+                    "vnp_TmnCode" => env('VNPAY_TMNCODE'),
+                    "vnp_Amount" => $vnp_Amount,
+                    "vnp_Command" => "pay",
+                    "vnp_CreateDate" => date('YmdHis'),
+                    "vnp_CurrCode" => "VND",
+                    "vnp_IpAddr" => $vnp_IpAddr,
+                    "vnp_Locale" => $vnp_Locale,
+                    "vnp_OrderInfo" => "Thanh toan GD:" . $vnp_TxnRef,
+                    "vnp_OrderType" => "other",
+                    "vnp_ReturnUrl" => env('VNPAY_RETURNURL'),
+                    "vnp_TxnRef" => $vnp_TxnRef,
+                    "vnp_ExpireDate" => $expire,
+                    "vnp_BankCode" => $vnp_BankCode,
+                ];
+
+                ksort($inputData);
+                $query = [];
+                foreach ($inputData as $key => $value) {
+                    $query[] = urlencode($key) . "=" . urlencode($value);
+                }
+                $queryString = implode('&', $query);
+
+                $hashdataArr = [];
+                foreach ($inputData as $key => $value) {
+                    $hashdataArr[] = $key . "=" . $value;
+                }
+                $hashdata = implode('&', $hashdataArr);
+
+                $vnp_Url = env('VNPAY_URL') . "?" . $queryString;
+
+                if ($vnp_HashSecret) {
+                    $vnpSecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret);
+                    $vnp_Url .= '&vnp_SecureHash=' . $vnpSecureHash;
+                }
+
+                DB::commit(); // Commit before redirect
+
+                return redirect()->to($vnp_Url);
+            }
+
             DB::commit();
+
 
             Mail::to(users: Auth::user()->email)->send(new ClientBookingNotify($booking));
             Mail::to(users: 'sotreduch26022001@gmail.com')->send(new AdminBookingNotify($booking));

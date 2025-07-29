@@ -156,7 +156,7 @@
                                                                     <a href="{{ route('admin.pages.booking.cancel.admin', ['booking' => $booking]) }}" class="btn btn-sm btn-danger">Cancel</a>
                                                                 @endif
 
-                                                                @if ($booking->status == 'completed')
+                                                                @if ($booking->status == 'completed' && $booking->checked_out == 0)
                                                                     @if ($booking->room->available == 0)
                                                                         <a class="btn btn-sm btn-info" href="{{route('admin.pages.booking.changeAvailable', ['booking' => $booking])}}">Đã Trả Phòng</a>
                                                                     @endif
@@ -196,6 +196,7 @@
                                                         <th>Status</th>
                                                         <th>Created Date</th>
                                                         <th>Deleted Date</th>
+                                                        <th>Actions</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -222,6 +223,15 @@
                                                             <td>
                                                                 {{ $user->deleted_at ? $user->deleted_at->format('Y-m-d H:i:s') : 'N/A' }}
                                                             </td>
+                                                            <td>
+                                                                @if($user->deleted_at)
+                                                                    <form action="{{ route('admin.users.restore', $user->id) }}" method="POST" style="display:inline;">
+                                                                        @csrf
+                                                                        @method('PATCH')
+                                                                        <button type="submit" class="btn btn-sm btn-success">Restore</button>
+                                                                    </form>
+                                                                @endif
+                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -240,7 +250,7 @@
             </div>
     </main>
 
-         <div class="modal fade" id="bookingDetailModal" tabindex="-1" aria-labelledby="bookingDetailModalLabel" aria-hidden="true">
+    <div class="modal fade" id="bookingDetailModal" tabindex="-1" aria-labelledby="bookingDetailModalLabel" aria-hidden="true">
          <div class="modal-dialog">
              <div class="modal-content">
              <div class="modal-header">
