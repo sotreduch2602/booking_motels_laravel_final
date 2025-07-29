@@ -27,7 +27,6 @@ class HotelController extends Controller
             'country'        => 'required|string|max:100',
             'description'    => 'nullable|string',
             'amenities'      => 'nullable|string|max:255',
-            'owner_id'       => 'nullable|integer|exists:users,id',
         ]);
 
         Hotel::create($validated);
@@ -47,7 +46,6 @@ class HotelController extends Controller
             'country'        => 'required|string|max:100',
             'description'    => 'nullable|string',
             'amenities'      => 'nullable|string|max:255',
-            'owner_id'       => 'nullable|integer|exists:users,id',
         ]);
 
         $hotel->update($validated);
