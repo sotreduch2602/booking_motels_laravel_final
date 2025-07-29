@@ -21,14 +21,37 @@ class GoogleController extends Controller
 
         // dd($accountUser);
 
-        $user = User::updateOrCreate([
-            'google_id' => $accountUser->id
-        ], [
-            'google_id' => $accountUser->id,
-            'full_name' => $accountUser->name,
-            'email' => $accountUser->email,
-            'password' => Hash::make('password')
-        ]);
+        // Check user (including soft deleted)
+        $user = User::withTrashed()->where('google_id', $accountUser->id)->first();
+
+        if (!$user) {
+            $existingUser = User::withTrashed()->where('email', $accountUser->email)->first();
+
+            if ($existingUser) {
+                if ($existingUser->trashed()) {
+                    // User is soft deleted
+                    return redirect()->route('home')->with('error', 'Tài khoản đã bị xóa vui lòng liên hệ admin');
+                }
+                // Email exists but no google_id, update the existing user
+                $existingUser->update([
+                    'google_id' => $accountUser->id,
+                    'full_name' => $accountUser->name
+                ]);
+                $user = $existingUser;
+            } else {
+                // Create new user
+                $user = User::create([
+                    'google_id' => $accountUser->id,
+                    'full_name' => $accountUser->name,
+                    'email' => $accountUser->email,
+                    'password' => Hash::make('password')
+                ]);
+            }
+        } else {
+            if ($user->trashed()) {
+                return redirect()->route('client.pages.home')->with('error', 'Tài khoản đã bị xóa vui lòng liên hệ admin');
+            }
+        }
 
         Auth::login($user);
 
