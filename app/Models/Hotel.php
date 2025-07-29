@@ -8,6 +8,8 @@ class Hotel extends Model
 {
     protected $table = 'hotels';
 
+    protected $guarded = [];
+
     public function Rooms()
     {
         return $this->hasMany(Rooms::class, 'hotel_id');

@@ -47,7 +47,13 @@
 
                 <li class="sidebar-item {{ $title === 'dashboardView' ? 'active' : '' }} ">
                     <a class="sidebar-link" href="{{ route('admin.pages.dashboard') }}">
-                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Management</span>
+                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item {{ $title === 'HotelView' ? 'active' : '' }} ">
+                    <a class="sidebar-link" href="{{ route('admin.pages.hotels') }}">
+                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Hotel Managements</span>
                     </a>
                 </li>
             @endif
