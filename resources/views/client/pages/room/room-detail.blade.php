@@ -175,6 +175,7 @@
         <div class="bg-light p-4 mb-5 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
             <h4 class="mb-4">Room Types</h4>
             @foreach ($roomTypes as $types )
+                @if(!$types->deleted_at)
                 <a class="d-block position-relative mb-3" href="{{ route('client.pages.room', [
                         'room_type' => $types->name
                     ]) }}">
@@ -183,6 +184,7 @@
                         <h5 class="text-white m-0 mt-auto">{{ $types->name }}</h5>
                     </div>
                 </a>
+                @endif
             @endforeach
         </div>
         <!-- Category End -->

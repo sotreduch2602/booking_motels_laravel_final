@@ -12,7 +12,7 @@ class RoomTypes extends Model
     protected $table = 'room_types';
     protected $guarded = [];
 
-    public function Rooms()
+    public function rooms()
     {
         return $this->hasMany(Rooms::class, 'room_type_id');
     }

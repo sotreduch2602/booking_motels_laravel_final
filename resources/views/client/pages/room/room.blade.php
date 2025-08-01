@@ -6,7 +6,7 @@
         <div class="row room-item m-0 mb-4 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
             <div class="col-md-5 col-lg-12 col-xl-5 p-0" style="min-height: 300px;">
                 <div class="position-relative h-100">
-                    <img class="position-absolute w-100 h-100" src="{{ asset('client_assets/img/'.$item->RoomType->image_preview) }}" alt="" style="object-fit: cover;">
+                                            <img class="position-absolute w-100 h-100" src="{{ asset('client_assets/img/'.($item->roomType ? $item->roomType->image_preview : 'default.jpg')) }}" alt="" style="object-fit: cover;">
                 </div>
             </div>
             <div class="col-md-7 col-lg-12 col-xl-7 h-100 px-0">
@@ -110,6 +110,7 @@
         <div class="bg-light p-4 mb-5 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
             <h4 class="mb-4">Room Types</h4>
             @foreach ($roomTypes as $types )
+                @if(!$types->deleted_at)
                 <a class="d-block position-relative mb-3" href="{{ route('client.pages.room', [
                         'room_type' => $types->name
                     ]) }}">
@@ -118,6 +119,7 @@
                         <h5 class="text-white m-0 mt-auto">{{ $types->name }}</h5>
                     </div>
                 </a>
+                @endif
             @endforeach
         </div>
         <!-- Category End -->
