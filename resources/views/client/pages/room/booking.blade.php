@@ -82,16 +82,16 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input disabled class="form-select" id="select1" value="{{ $room->Hotel->city }}">
+                                        <input disabled class="form-select" id="select1" value="{{ $room->hotel ? $room->hotel->city : 'N/A' }}">
                                         <label for="select1">Location</label>
-                                        <input type="hidden" name="city" value="{{ $room->Hotel->city }}">
+                                        <input type="hidden" name="city" value="{{ $room->hotel ? $room->hotel->city : '' }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input disabled class="form-select" id="select2" value="{{ $room->RoomType->name }}">
+                                        <input disabled class="form-select" id="select2" value="{{ $room->roomType->name }}">
                                         <label for="select2">Room Types</label>
-                                        <input type="hidden" name="room_type" value="{{ $room->RoomType->name }}">
+                                        <input type="hidden" name="room_type" value="{{ $room->roomType->name }}">
                                     </div>
                                 </div>
                                 <div class="col-12">

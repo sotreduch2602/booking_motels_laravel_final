@@ -21,7 +21,7 @@
                             <small class="fa fa-star text-primary"></small>
                         </div>
                     </div>
-                    <h5 class="mb-3">{{ $item->RoomType->name }} - {{ $item->Hotel->city }}</h5>
+                    <h5 class="mb-3">{{ $item->roomType->name }} - {{ $item->hotel ? $item->hotel->city : 'N/A' }}</h5>
                     <div class="d-flex mb-3">
                         <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2"></i>{{ $item->max_people }} Bed</small>
                         <small class="border-end me-3 pe-3"><i class="fa fa-tv text-primary me-2"></i>TV</small>

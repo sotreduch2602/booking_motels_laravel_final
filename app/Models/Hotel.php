@@ -13,12 +13,12 @@ class Hotel extends Model
 
     protected $guarded = [];
 
-    public function Rooms()
+    public function rooms()
     {
         return $this->hasMany(Rooms::class, 'hotel_id');
     }
 
-    public function Review(){
+    public function reviews(){
         return $this->hasMany(Reviews::class,'hotel_id');
     }
 }

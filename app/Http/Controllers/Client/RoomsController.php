@@ -24,12 +24,17 @@ class RoomsController extends Controller
     {
         $hotel = Hotel::all();
         $roomTypes = RoomTypes::all();
-        $roomQuery = Rooms::with('RoomType')->where('available','=','1')->orderBy('id','desc');
+        $roomQuery = Rooms::with(['RoomType', 'hotel'])->where('available','=','1')->orderBy('id','desc');
+
+        // Exclude rooms from soft-deleted hotels
+        $roomQuery->whereHas('hotel', function($query) {
+            $query->whereNull('deleted_at');
+        });
 
         if ($request->query('room_type')) {
             $roomTypeName = $request->query('room_type');
 
-            $roomQuery->whereHas('RoomType', function ($query) use ($roomTypeName) {
+            $roomQuery->whereHas('roomType', function ($query) use ($roomTypeName) {
                 $query->where('name', $roomTypeName);
             });
         }
@@ -38,7 +43,7 @@ class RoomsController extends Controller
         if ($request->query('city')) {
             $city = $request->query('city');
             $roomQuery->whereHas('hotel', function ($q) use ($city) {
-                $q->where('city', $city);
+                $q->where('city', $city)->whereNull('deleted_at');
             });
         }
 
@@ -59,10 +64,15 @@ class RoomsController extends Controller
         ]);
     }
     public function detail(Rooms $room){
+        // kiểm tra room soft deleted
+        if (!$room->hotel || $room->hotel->deleted_at) {
+            abort(404, 'Room not found or hotel has been removed.');
+        }
+
         $hotel = Hotel::all();
         $roomTypes = RoomTypes::all();
         // Lấy reviews dạng paginate
-        $reviews = $room->Hotel->Review()->orderByDesc('id')->with('Users')->paginate(5);
+        $reviews = $room->hotel->reviews()->orderByDesc('id')->with('Users')->paginate(5);
         return view('client.pages.room.room-detail',[
         'title' => 'Rooms',
         'roomTypes' => $roomTypes,
@@ -106,6 +116,11 @@ class RoomsController extends Controller
     }
 
     public function booking(Rooms $room){
+        // Check if the room's hotel is soft deleted
+        if (!$room->hotel || $room->hotel->deleted_at) {
+            abort(404, 'Room not found or hotel has been removed.');
+        }
+
         $hotel = Hotel::all();
         $roomTypes = RoomTypes::all();
 
@@ -119,6 +134,11 @@ class RoomsController extends Controller
 
     public function checkoutView(Request $request, Rooms $room)
     {
+        // Check if the room's hotel is soft deleted
+        if (!$room->hotel || $room->hotel->deleted_at) {
+            abort(404, 'Room not found or hotel has been removed.');
+        }
+
         try {
             $request->validate([
                 'check_in' => 'required|date',
@@ -175,14 +195,20 @@ class RoomsController extends Controller
             $booking->status = ($request->input('payment') === 'COD') ? 'pending' : 'completed';
             $booking->save();
 
-            $room = Rooms::find($request->input('room_id'));
-            if ($room && $room->available == 1) {
+            $room = Rooms::with('hotel')->find($request->input('room_id'));
+            if ($room && $room->available == 1 && (!$room->hotel || !$room->hotel->deleted_at)) {
                 $room->available = 0;
                 $room->updated_at = now();
                 $room->save();
             } else {
                 DB::rollBack();
-                return back()->with('error', 'Phòng không còn khả dụng!');
+                if (!$room) {
+                    return back()->with('error', 'Phòng không tồn tại!');
+                } elseif ($room->hotel && $room->hotel->deleted_at) {
+                    return back()->with('error', 'Khách sạn đã bị xóa!');
+                } else {
+                    return back()->with('error', 'Phòng không còn khả dụng!');
+                }
             }
 
             if ($request->input('payment') == 'VNPay') {
