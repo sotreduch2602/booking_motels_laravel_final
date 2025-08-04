@@ -69,12 +69,12 @@ class RoomsController extends Controller
         ]);
     }
     public function detail(Rooms $room){
-        // kiểm tra room soft deleted
+        // Check Hotel Room
         if (!$room->hotel || $room->hotel->deleted_at) {
             abort(404, 'Room not found or hotel has been removed.');
         }
 
-        // Check if the room's room type is soft deleted
+        // Check RoomType Room
         if (!$room->roomType || $room->roomType->deleted_at) {
             abort(404, 'Room not found or room type has been removed.');
         }
@@ -126,12 +126,12 @@ class RoomsController extends Controller
     }
 
     public function booking(Rooms $room){
-        // Check if the room's hotel is soft deleted
+        // Check Hotel Room
         if (!$room->hotel || $room->hotel->deleted_at) {
             abort(404, 'Room not found or hotel has been removed.');
         }
 
-        // Check if the room's room type is soft deleted
+        // Check  RoomType Room
         if (!$room->roomType || $room->roomType->deleted_at) {
             abort(404, 'Room not found or room type has been removed.');
         }
@@ -149,12 +149,12 @@ class RoomsController extends Controller
 
     public function checkoutView(Request $request, Rooms $room)
     {
-        // Check if the room's hotel is soft deleted
+        // Check Hotel Room
         if (!$room->hotel || $room->hotel->deleted_at) {
             abort(404, 'Room not found or hotel has been removed.');
         }
 
-        // Check if the room's room type is soft deleted
+        // Check RoomType Room
         if (!$room->roomType || $room->roomType->deleted_at) {
             abort(404, 'Room not found or room type has been removed.');
         }
@@ -234,6 +234,17 @@ class RoomsController extends Controller
             }
 
             if ($request->input('payment') == 'VNPay') {
+                // Validate VNPay configuration
+                $vnp_HashSecret = env('VNPAY_HASHSECRET');
+                $vnp_TmnCode = env('VNPAY_TMNCODE');
+                $vnp_ReturnUrl = env('VNPAY_RETURNURL');
+                $vnp_Url = env('VNPAY_URL');
+
+                if (!$vnp_HashSecret || !$vnp_TmnCode || !$vnp_ReturnUrl || !$vnp_Url) {
+                    DB::rollBack();
+                    return back()->with('error', 'Cấu hình VNPay chưa đầy đủ. Vui lòng liên hệ admin.');
+                }
+
                 date_default_timezone_set('Asia/Ho_Chi_Minh');
                 $startTime = date("YmdHis");
                 $expire = date('YmdHis', strtotime('+15 minutes', strtotime($startTime)));
@@ -243,11 +254,10 @@ class RoomsController extends Controller
                 $vnp_Locale = 'vn';
                 $vnp_BankCode = 'VNBANK';
                 $vnp_IpAddr = $request->ip();
-                $vnp_HashSecret = env('VNPAY_HASHSECRET');
 
                 $inputData = [
                     "vnp_Version" => "2.1.0",
-                    "vnp_TmnCode" => env('VNPAY_TMNCODE'),
+                    "vnp_TmnCode" => $vnp_TmnCode,
                     "vnp_Amount" => $vnp_Amount,
                     "vnp_Command" => "pay",
                     "vnp_CreateDate" => date('YmdHis'),
@@ -256,30 +266,46 @@ class RoomsController extends Controller
                     "vnp_Locale" => $vnp_Locale,
                     "vnp_OrderInfo" => "Thanh toan GD:" . $vnp_TxnRef,
                     "vnp_OrderType" => "other",
-                    "vnp_ReturnUrl" => env('VNPAY_RETURNURL'),
+                    "vnp_ReturnUrl" => $vnp_ReturnUrl,
                     "vnp_TxnRef" => $vnp_TxnRef,
                     "vnp_ExpireDate" => $expire,
                     "vnp_BankCode" => $vnp_BankCode,
                 ];
 
+                // Remove empty values
+                $inputData = array_filter($inputData, function($value) {
+                    return $value !== null && $value !== '';
+                });
+
                 ksort($inputData);
+
+                // Build query string for URL
                 $query = [];
                 foreach ($inputData as $key => $value) {
                     $query[] = urlencode($key) . "=" . urlencode($value);
                 }
                 $queryString = implode('&', $query);
 
-                $hashdataArr = [];
+                // Build hash data (without urlencode)
+                $hashdata = "";
                 foreach ($inputData as $key => $value) {
-                    $hashdataArr[] = $key . "=" . $value;
+                    $hashdata .= $key . "=" . $value . "&";
                 }
-                $hashdata = implode('&', $hashdataArr);
+                $hashdata = rtrim($hashdata, "&");
 
                 $vnp_Url = env('VNPAY_URL') . "?" . $queryString;
 
                 if ($vnp_HashSecret) {
                     $vnpSecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret);
                     $vnp_Url .= '&vnp_SecureHash=' . $vnpSecureHash;
+
+                    // Debug logging (remove in production)
+                    // \Illuminate\Support\Facades\Log::info('VNPay Debug', [
+                    //     'hashdata' => $hashdata,
+                    //     'secureHash' => $vnpSecureHash,
+                    //     'amount' => $vnp_Amount,
+                    //     'txnRef' => $vnp_TxnRef
+                    // ]);
                 }
 
                 DB::commit(); // Commit before redirect
