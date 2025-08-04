@@ -10,7 +10,6 @@ use App\Models\RoomTypes;
 
 class RoomController extends Controller
 {
-    // Display a listing of the rooms
     public function index()
     {
         $rooms = Rooms::withTrashed()->orderBy('id', 'desc')->get(); // includes soft-deleted
@@ -20,8 +19,6 @@ class RoomController extends Controller
 
         return view('admin.pages.admin.room', compact('rooms', 'hotels', 'roomTypes', 'title'));
     }
-
-    // Store a newly created room in storage
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -39,7 +36,7 @@ class RoomController extends Controller
         return redirect()->route('admin.pages.rooms.index')->with('success', 'Room created successfully.');
     }
 
-    // Update the specified room in storage
+    // Update Room
     public function update(Request $request, $id)
     {
         $room = Rooms::withTrashed()->findOrFail($id);
@@ -59,7 +56,7 @@ class RoomController extends Controller
         return redirect()->route('admin.pages.rooms.index')->with('success', 'Room updated successfully.');
     }
 
-    // Remove the specified room from storage (soft delete)
+    // Remove Room
     public function destroy($id)
     {
         $room = Rooms::findOrFail($id);
@@ -67,8 +64,6 @@ class RoomController extends Controller
 
         return redirect()->route('admin.pages.rooms.index')->with('success', 'Room deleted successfully.');
     }
-
-    // Restore the specified room from storage
     public function restore($id)
     {
         $room = Rooms::withTrashed()->findOrFail($id);
