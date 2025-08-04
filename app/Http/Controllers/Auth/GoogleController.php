@@ -21,7 +21,7 @@ class GoogleController extends Controller
 
         // dd($accountUser);
 
-        // Check user (including soft deleted)
+        // Check user
         $user = User::withTrashed()->where('google_id', $accountUser->id)->first();
 
         if (!$user) {
@@ -32,7 +32,7 @@ class GoogleController extends Controller
                     // User is soft deleted
                     return redirect()->route('home')->with('error', 'Tài khoản đã bị xóa vui lòng liên hệ admin');
                 }
-                // Email exists but no google_id, update the existing user
+                // Email exists, no google_id -> update the existing user with google id
                 $existingUser->update([
                     'google_id' => $accountUser->id,
                     'full_name' => $accountUser->name
