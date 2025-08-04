@@ -33,15 +33,15 @@ class AnalyticController extends Controller
         $totalReviews = $reviews->count();
         $totalHotels = $hotels->count();
 
-        // Thống kê theo trạng thái booking
+        //! Thống kê theo trạng thái booking
         $completedBookings = $bookings->where('status', 'completed')->count();
         $pendingBookings = $bookings->where('status', 'pending')->count();
         $cancelledBookings = $bookings->where('status', 'cancelled')->count();
 
-        // Tổng doanh thu từ bookings completed
+        //! Tổng doanh thu từ bookings completed
         $totalRevenue = $bookings->where('status', 'completed')->sum('total_price');
 
-        // Dữ liệu cho Recent Movement (Total Price theo tháng)
+        //! Dữ liệu cho Total Price theo tháng
         $monthlyRevenue = [];
         for ($i = 11; $i >= 0; $i--) {
             $month = Carbon::now()->subMonths($i);
@@ -53,7 +53,7 @@ class AnalyticController extends Controller
             $monthlyRevenue[$monthName] = $monthRevenue;
         }
 
-                // Dữ liệu cho Browser Usage (Location Booking - theo thành phố)
+        //! Dữ liệu Location Booking - theo thành phố
         $locationBookings = [];
         foreach ($hotels as $hotel) {
             $bookingCount = $bookings->where('room.hotel_id', $hotel->id)->count();
@@ -62,7 +62,7 @@ class AnalyticController extends Controller
             }
         }
 
-        // Sắp xếp theo số lượng booking giảm dần
+        //! Sắp xếp theo số lượng booking giảm dần
         arsort($locationBookings);
 
         return view('admin.pages.admin.analytic', [

@@ -16,13 +16,13 @@ class DashboardController extends Controller
      * Display a listing of the resource.
      */
     public function dashboardView(){
-        // Lấy tất cả bookings với thông tin room và user
+        //! Lấy tất cả bookings với thông tin room và user
         $bookings = Booking::with(['room.RoomType', 'user'])->latest()->get();
 
-        // Lấy tất cả users bao gồm SoftDelete User
+        //! Lấy tất cả users bao gồm SoftDelete User
         $users = User::withTrashed()->latest()->get();
 
-        // Thống kê tổng quan
+        //! Thống kê tổng quan
         $totalBookings = $bookings->count();
         $totalUsers = User::latest()->get()->count();
         $completedBookings = $bookings->where('status', 'completed')->count();
@@ -74,10 +74,10 @@ class DashboardController extends Controller
 
             $room = $booking->room;
             if ($room) {
-                // Booking: mark as checked out
+                //! Booking: mark as checked out
                 $booking->checked_out = 1;
                 $booking->save();
-                // Cập nhật lại trạng thái phòng về available = 1
+                //! Cập nhật lại trạng thái phòng về available = 1
                 $room->available = 1;
                 $room->updated_at = now();
                 $room->save();
@@ -98,11 +98,11 @@ class DashboardController extends Controller
 
             $room = $booking->room;
             if ($room && $room->available == 0) {
-                // Booking: mark as checked out
+                //! Booking: mark as checked out
                 $booking->checked_out = 1;
                 $booking->save();
 
-                // Room: mark as available
+                //! Room: mark as available
                 $room->available = 1;
                 $room->updated_at = now();
                 $room->save();

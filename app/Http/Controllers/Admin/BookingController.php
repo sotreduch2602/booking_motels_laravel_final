@@ -15,10 +15,13 @@ class BookingController extends Controller
         $userId = Auth::user()->id;
 
         // dd($userId);
+
         $bookings = Booking::with(['room'])
             ->where('user_id', $userId)
             ->orderBy('id', 'desc')
             ->get();
+
+        // dd($bookings);
 
         return view('admin.pages.booking', [
             'title' => 'bookingView',
@@ -34,8 +37,8 @@ class BookingController extends Controller
             $booking->updated_at = now();
             $booking->save();
 
-            // Cập nhật lại trạng thái phòng về available = 1
-            $room = $booking->room; // Lấy phòng liên quan
+            //! Cập nhật lại trạng thái phòng về available = 1
+            $room = $booking->room; //! Lấy phòng liên quan
             if ($room) {
                 $room->available = 1;
                 $room->updated_at = now();

@@ -24,7 +24,7 @@ class RoomsController extends Controller
     {
         $hotel = Hotel::all();
         $roomTypes = RoomTypes::whereNull('deleted_at')->get();
-        $roomQuery = Rooms::with(['RoomType', 'hotel'])->where('available','=','1')->orderBy('id','desc');
+        $roomQuery = Rooms::with(['roomType', 'hotel'])->where('available','=','1')->orderBy('id','desc');
 
         // Exclude rooms from soft-deleted hotels
         $roomQuery->whereHas('hotel', function($query) {
@@ -161,7 +161,7 @@ class RoomsController extends Controller
 
         try {
             $request->validate([
-                'check_in' => 'required|date',
+                'check_in' => 'required|date|after_or_equal:today',
                 'check_out' => 'required|date|after:check_in',
                 'payment' => 'required',
                 'email' => 'required|email',
@@ -232,6 +232,8 @@ class RoomsController extends Controller
                     return back()->with('error', 'Phòng không còn khả dụng!');
                 }
             }
+
+            DB::commit();
 
             if ($request->input('payment') == 'VNPay') {
                 // Validate VNPay configuration
@@ -312,9 +314,6 @@ class RoomsController extends Controller
 
                 return redirect()->to($vnp_Url);
             }
-
-            DB::commit();
-
 
             Mail::to(users: Auth::user()->email)->send(new ClientBookingNotify($booking));
             Mail::to(users: 'sotreduch26022001@gmail.com')->send(new AdminBookingNotify($booking));

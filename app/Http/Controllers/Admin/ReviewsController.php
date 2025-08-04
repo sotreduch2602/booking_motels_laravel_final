@@ -12,12 +12,12 @@ class ReviewsController extends Controller
     public function reviewView(){
         $user = Auth::user();
 
-        // Get all reviews for this user (if that's the intent)
+        // Get all reviews for this user
         $reviewUser = Reviews::where('user_id', $user->id)->with('hotel')->get();
-        
+
         return view('admin.pages.review', [
             'title' => 'reviewView',
-            'reviews' => $reviewUser, // Pass the reviews to the view
+            'reviews' => $reviewUser,
         ]);
     }
 }
